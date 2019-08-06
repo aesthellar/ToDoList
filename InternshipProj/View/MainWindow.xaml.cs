@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace InternshipProj
+namespace InternshipProj.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
