@@ -1,9 +1,4 @@
 ﻿using InternshipProj.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InternshipProj.ViewModel
 {
@@ -53,7 +48,5 @@ namespace InternshipProj.ViewModel
             _done = false;
             _item = new TodoItem();
         }
-
-
     }
 }

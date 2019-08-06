@@ -1,11 +1,7 @@
 ﻿using InternshipProj.Model;
 using InternshipProj.Utility;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InternshipProj.ViewModel
 {
