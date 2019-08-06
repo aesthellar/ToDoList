@@ -2,6 +2,7 @@
 using InternshipProj.Utility;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace InternshipProj.ViewModel
 {
@@ -40,6 +41,7 @@ namespace InternshipProj.ViewModel
                 foreach(TodoItem item in items)
                 {
                     var newItemVM = new TodoItemVM(item);
+                    newItemVM.PropertyChanged += TodoItemVM_PropertyChanged;
                     _itemList.Add(newItemVM);
                 }
             }
@@ -49,6 +51,14 @@ namespace InternshipProj.ViewModel
         {
             var newItem = new TodoItemVM();
             ItemList.Add(newItem);
+            newItem.PropertyChanged += TodoItemVM_PropertyChanged;
         }
+
+        private void TodoItemVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var item = sender as TodoItemVM;
+            item.Update();
+        }
+
     }
 }

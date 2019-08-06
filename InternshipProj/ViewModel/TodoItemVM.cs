@@ -48,5 +48,11 @@ namespace InternshipProj.ViewModel
             _done = false;
             _item = new TodoItem();
         }
+
+        public void Update()
+        {
+            _item.Desc = Desc;
+            _item.Done = Done;
+        }
     }
 }
