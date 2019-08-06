@@ -9,7 +9,7 @@ namespace InternshipProj.ViewModel
     public class TodoListVM : ViewModelBase
     {
         private ObservableCollection<TodoItemVM> _itemList;
-        private RelayCommand _addCommand;
+        private RelayCommand _addCommand, _deleteCommand;
 
         public ObservableCollection<TodoItemVM> ItemList
         {
@@ -21,17 +21,24 @@ namespace InternshipProj.ViewModel
             get { return _addCommand; }
         }
 
+        public RelayCommand DeleteCommand
+        {
+            get { return _deleteCommand; }
+        }
+
         public TodoListVM(List<TodoItem> items)
         {
             _itemList = new ObservableCollection<TodoItemVM>();
             BuildViewModels(items);
             _addCommand = new RelayCommand(AddItem);
+            _deleteCommand = new RelayCommand(DeleteItem);
         }
 
         public TodoListVM()
         {
             _itemList = new ObservableCollection<TodoItemVM>();
             _addCommand = new RelayCommand(AddItem);
+            _deleteCommand = new RelayCommand(DeleteItem);
         }
 
         private void BuildViewModels(List<TodoItem> items)
@@ -52,6 +59,16 @@ namespace InternshipProj.ViewModel
             var newItem = new TodoItemVM();
             ItemList.Add(newItem);
             newItem.PropertyChanged += TodoItemVM_PropertyChanged;
+        }
+
+        private void DeleteItem(object obj)
+        {
+            if(obj is TodoItemVM)
+            {
+                var item = (TodoItemVM)obj;
+                item.PropertyChanged -= TodoItemVM_PropertyChanged;
+                ItemList.Remove(item);
+            }
         }
 
         private void TodoItemVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
