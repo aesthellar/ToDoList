@@ -16,10 +16,5 @@ namespace InternshipProj.View
             InitializeComponent();
             DataContext = _listVM;
         }
-
-        private void ScrollBar_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
-        {
-
-        }
     }
 }
