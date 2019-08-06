@@ -14,10 +14,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-      <ScrollViewer>
-        <view:TodoListControl
-          HorizontalAlignment="Stretch"
-          VerticalAlignment="Stretch"/>
-      </ScrollViewer>  
+      <view:TodoListControl
+         HorizontalAlignment="Stretch"
+         VerticalAlignment="Stretch"/>
     </Grid>
 </Window>

@@ -24,20 +24,26 @@
         <ItemsControl
             ItemsSource="{Binding ItemList,Mode=OneWay}"
             Grid.Row="1">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel
-                        Orientation="Vertical"
-                        Background="White"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="{x:Type ItemsControl}">
+                    <Grid
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                        <ScrollViewer
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </Grid>
+                </ControlTemplate>
+            </ItemsControl.Template>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type viewModel:TodoItemVM}">
                     <Grid
                         Margin="0,2.5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*" MaxWidth="800"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Ellipse
