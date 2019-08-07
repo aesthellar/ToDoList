@@ -6,10 +6,9 @@ namespace InternshipProj.Utility
 {
     public static class CSVImporter
     {
-        public static List<TodoItem> Load(string fileName = "")
+        public static List<TodoItem> Load()
         {
             Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
-            ofd.FileName = fileName;
             ofd.DefaultExt = ".csv";
             ofd.Filter = CSVExporter.EXTFILTER;
 
@@ -23,7 +22,10 @@ namespace InternshipProj.Utility
 
             return null;
         }
-
+        public static List<TodoItem> Load(string fileName)
+        {
+            return CSVRead(fileName);
+        }
         private static List<TodoItem> CSVRead(string userFile)
         {
             List<TodoItem> list = new List<TodoItem>();

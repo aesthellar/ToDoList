@@ -95,6 +95,8 @@ namespace InternshipProj.ViewModel
             }
             CSVExporter csvexp = new CSVExporter();
             csvexp.Save(items);
+            Properties.Settings.Default.userSavePath = csvexp.FileName;
+            Properties.Settings.Default.Save();
         }
 
         private bool CanSave(object obj)
@@ -117,6 +119,12 @@ namespace InternshipProj.ViewModel
             }
 
             var loadedList = CSVImporter.Load();
+            BuildViewModels(loadedList);
+        }
+
+        public void InitializeList(string path)
+        {
+            var loadedList = CSVImporter.Load(path);
             BuildViewModels(loadedList);
         }
 

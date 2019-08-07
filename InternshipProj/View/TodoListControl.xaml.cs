@@ -15,6 +15,11 @@ namespace InternshipProj.View
             _listVM = new TodoListVM();
             InitializeComponent();
             DataContext = _listVM;
+
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.userSavePath))
+            {
+                _listVM.InitializeList(Properties.Settings.Default.userSavePath);
+            }
         }
     }
 }
