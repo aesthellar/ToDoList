@@ -9,6 +9,8 @@ namespace InternshipProj.Utility
     {
         private string _fileName;
         public const string EXTFILTER = "CSV Files|*.csv";
+
+        public string FileName { get { return _fileName; } }
         
         //Method to open save dialog
         public void Save(List<TodoItem> items, string openPath = "")
