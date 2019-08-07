@@ -3,13 +3,14 @@ using InternshipProj.Utility;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace InternshipProj.ViewModel
 {
     public class TodoListVM : ViewModelBase
     {
         private ObservableCollection<TodoItemVM> _itemList;
-        private RelayCommand _addCommand, _deleteCommand, _saveCommand;
+        private RelayCommand _addCommand, _deleteCommand, _saveCommand, _loadCommand;
 
         public ObservableCollection<TodoItemVM> ItemList
         {
@@ -31,6 +32,11 @@ namespace InternshipProj.ViewModel
             get { return _saveCommand; }
         }
 
+        public RelayCommand LoadCommand
+        {
+            get { return _loadCommand; }
+        }
+
         public TodoListVM(List<TodoItem> items)
         {
             _itemList = new ObservableCollection<TodoItemVM>();
@@ -38,6 +44,7 @@ namespace InternshipProj.ViewModel
             _addCommand = new RelayCommand(AddItem);
             _deleteCommand = new RelayCommand(DeleteItem);
             _saveCommand = new RelayCommand(SaveList,CanSave);
+            _loadCommand = new RelayCommand(LoadList);
         }
 
         public TodoListVM()
@@ -46,6 +53,7 @@ namespace InternshipProj.ViewModel
             _addCommand = new RelayCommand(AddItem);
             _deleteCommand = new RelayCommand(DeleteItem);
             _saveCommand = new RelayCommand(SaveList, CanSave);
+            _loadCommand = new RelayCommand(LoadList);
         }
 
         private void BuildViewModels(List<TodoItem> items)
@@ -92,6 +100,24 @@ namespace InternshipProj.ViewModel
         private bool CanSave(object obj)
         {
             return ItemList.Count > 0;
+        }
+
+        private void LoadList(object obj)
+        {
+            if(ItemList.Count>0)
+            {
+                //show message box with ok/cancel if user wants to clear items
+                var result = MessageBox.Show("Loading a new list will clear your current list. Continue?", "Load Warning", MessageBoxButton.OKCancel);
+                if (!result.Equals(MessageBoxResult.OK))
+                {
+                    return; //if cancel, return
+                }
+
+                ItemList.Clear();   //otherwise, continue
+            }
+
+            var loadedList = CSVImporter.Load();
+            BuildViewModels(loadedList);
         }
 
         private void TodoItemVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
