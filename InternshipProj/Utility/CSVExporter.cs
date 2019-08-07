@@ -26,11 +26,6 @@ namespace InternshipProj.Utility
             if(result == true)
             {
                 _fileName = dlg.FileName;
-                //if (!File.Exists(_fileName))
-                //{
-                //    File.Create(_fileName);
-                //    File.cl
-                //}
                 CSVwrite(items);
             }
         }
