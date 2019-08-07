@@ -128,6 +128,17 @@ namespace InternshipProj.ViewModel
             BuildViewModels(loadedList);
         }
 
+        public void ExitSave(string path)
+        {
+            List<TodoItem> items = new List<TodoItem>();
+            foreach (TodoItemVM itemVM in ItemList)
+            {
+                items.Add(itemVM.Item);
+            }
+            CSVExporter csvexp = new CSVExporter();
+            csvexp.Save(items, path);
+        }
+
         private void TodoItemVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var item = sender as TodoItemVM;

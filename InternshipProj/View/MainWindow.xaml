@@ -6,7 +6,8 @@
         xmlns:view="clr-namespace:InternshipProj.View"
         xmlns:local="clr-namespace:InternshipProj"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -15,6 +16,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
       <view:TodoListControl
+         x:Name="ListControl"
          HorizontalAlignment="Stretch"
          VerticalAlignment="Stretch"/>
     </Grid>

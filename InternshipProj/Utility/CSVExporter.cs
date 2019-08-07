@@ -13,10 +13,9 @@ namespace InternshipProj.Utility
         public string FileName { get { return _fileName; } }
         
         //Method to open save dialog
-        public void Save(List<TodoItem> items, string openPath = "")
+        public void Save(List<TodoItem> items)
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = openPath;
             dlg.DefaultExt = ".csv";
             dlg.Filter = EXTFILTER;
 
@@ -27,6 +26,12 @@ namespace InternshipProj.Utility
                 _fileName = dlg.FileName;
                 CSVwrite(items);
             }
+        }
+
+        public void Save(List<TodoItem> items, string path)
+        {
+            _fileName = path;
+            CSVwrite(items);
         }
         
         //Method to create and write into CSV
