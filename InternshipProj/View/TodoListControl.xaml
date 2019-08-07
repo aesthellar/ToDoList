@@ -21,6 +21,19 @@
             FontSize="25"
             Margin="10"
             />
+        <Button
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Grid.Row="0"
+            Content="Save"
+            FontSize="20"
+            Margin="20"
+            Padding="10"
+            BorderThickness="0"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Command="{Binding SaveCommand,Mode=OneWay}"            
+            />
         <ItemsControl
             ItemsSource="{Binding ItemList,Mode=OneWay}"
             Grid.Row="1">

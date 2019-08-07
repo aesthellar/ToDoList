@@ -28,6 +28,11 @@ namespace InternshipProj.ViewModel
             }
         }
 
+        public TodoItem Item
+        {
+            get { return _item; }
+        }
+
         public TodoItemVM(string desc, bool done)
         {
             _desc = desc;

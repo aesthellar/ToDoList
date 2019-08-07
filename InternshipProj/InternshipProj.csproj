@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utility\CSVExporter.cs" />
     <Compile Include="View\TodoListControl.xaml.cs">
       <DependentUpon>TodoListControl.xaml</DependentUpon>
     </Compile>

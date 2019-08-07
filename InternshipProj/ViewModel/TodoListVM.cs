@@ -9,7 +9,7 @@ namespace InternshipProj.ViewModel
     public class TodoListVM : ViewModelBase
     {
         private ObservableCollection<TodoItemVM> _itemList;
-        private RelayCommand _addCommand, _deleteCommand;
+        private RelayCommand _addCommand, _deleteCommand, _saveCommand;
 
         public ObservableCollection<TodoItemVM> ItemList
         {
@@ -26,12 +26,18 @@ namespace InternshipProj.ViewModel
             get { return _deleteCommand; }
         }
 
+        public RelayCommand SaveCommand
+        {
+            get { return _saveCommand; }
+        }
+
         public TodoListVM(List<TodoItem> items)
         {
             _itemList = new ObservableCollection<TodoItemVM>();
             BuildViewModels(items);
             _addCommand = new RelayCommand(AddItem);
             _deleteCommand = new RelayCommand(DeleteItem);
+            _saveCommand = new RelayCommand(SaveList,CanSave);
         }
 
         public TodoListVM()
@@ -39,6 +45,7 @@ namespace InternshipProj.ViewModel
             _itemList = new ObservableCollection<TodoItemVM>();
             _addCommand = new RelayCommand(AddItem);
             _deleteCommand = new RelayCommand(DeleteItem);
+            _saveCommand = new RelayCommand(SaveList, CanSave);
         }
 
         private void BuildViewModels(List<TodoItem> items)
@@ -69,6 +76,22 @@ namespace InternshipProj.ViewModel
                 item.PropertyChanged -= TodoItemVM_PropertyChanged;
                 ItemList.Remove(item);
             }
+        }
+
+        private void SaveList(object obj)
+        {
+            List<TodoItem> items = new List<TodoItem>();
+            foreach(TodoItemVM itemVM in ItemList)
+            {
+                items.Add(itemVM.Item);
+            }
+            CSVExporter csvexp = new CSVExporter();
+            csvexp.Save(items);
+        }
+
+        private bool CanSave(object obj)
+        {
+            return ItemList.Count > 0;
         }
 
         private void TodoItemVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
