@@ -24,5 +24,10 @@ namespace InternshipProj.View
         {
             InitializeComponent();
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            ListControl.OnClose();
+        }
     }
 }

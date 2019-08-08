@@ -21,5 +21,13 @@ namespace InternshipProj.View
                 _listVM.InitializeList(Properties.Settings.Default.userSavePath);
             }
         }
+
+        public void OnClose()
+        {
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.userSavePath))
+            {
+                _listVM.ExitSave(Properties.Settings.Default.userSavePath);
+            }
+        }
     }
 }
