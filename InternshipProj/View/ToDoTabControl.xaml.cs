@@ -17,18 +17,17 @@ using InternshipProj.ViewModel;
 namespace InternshipProj.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ToDoTabControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ToDoTabControl : UserControl
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        private ListTabsVM _tabList;
 
-        private void Window_Closed(object sender, EventArgs e)
+        public ToDoTabControl()
         {
-            //ListControl.OnClose();
+            _tabList = new ListTabsVM();
+            InitializeComponent();
+            DataContext = _tabList;
         }
     }
 }

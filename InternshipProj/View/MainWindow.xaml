@@ -6,17 +6,17 @@
         xmlns:view="clr-namespace:InternshipProj.View"
         xmlns:local="clr-namespace:InternshipProj"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="To Do Boi" Height="450" Width="800"
         Closed="Window_Closed">
-    <Grid>
+    <Grid x:Name="Tab" xmlns:local="clr-namespace:InternshipProj.View">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-      <view:TodoListControl
-         x:Name="ListControl"
+      <view:ToDoTabControl
+         x:Name="TabControl"
          HorizontalAlignment="Stretch"
          VerticalAlignment="Stretch"/>
     </Grid>

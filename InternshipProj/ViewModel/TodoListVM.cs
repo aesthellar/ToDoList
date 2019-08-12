@@ -3,18 +3,30 @@ using InternshipProj.Utility;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Dynamic;
 using System.Windows;
 
 namespace InternshipProj.ViewModel
 {
     public class TodoListVM : ViewModelBase
     {
+        private string _listName;
         private ObservableCollection<TodoItemVM> _itemList;
-        private RelayCommand _addCommand, _deleteCommand, _saveCommand, _loadCommand;
+        private RelayCommand _addCommand, _deleteCommand, _saveCommand, _loadCommand, _changeNameCommand;
 
         public ObservableCollection<TodoItemVM> ItemList
         {
             get { return _itemList; }
+        }
+
+        public string ListName
+        {
+            get { return _listName; }
+            set
+            {
+                _listName = value;
+                OnPropertyChanged();
+            }
         }
 
         public RelayCommand AddCommand
@@ -37,8 +49,14 @@ namespace InternshipProj.ViewModel
             get { return _loadCommand; }
         }
 
-        public TodoListVM(List<TodoItem> items)
+        public RelayCommand ChangeNameCommand
         {
+            get { return _changeNameCommand; }
+        }
+
+        public TodoListVM(List<TodoItem> items, string name)
+        {
+            _listName = name;
             _itemList = new ObservableCollection<TodoItemVM>();
             BuildViewModels(items);
             _addCommand = new RelayCommand(AddItem);
@@ -49,6 +67,7 @@ namespace InternshipProj.ViewModel
 
         public TodoListVM()
         {
+            _listName = "New List";
             _itemList = new ObservableCollection<TodoItemVM>();
             _addCommand = new RelayCommand(AddItem);
             _deleteCommand = new RelayCommand(DeleteItem);
@@ -120,6 +139,11 @@ namespace InternshipProj.ViewModel
 
             var loadedList = CSVImporter.Load();
             BuildViewModels(loadedList);
+        }
+
+        private void ChangeName(string name)
+        {
+            _listName = name;
         }
 
         public void InitializeList(string path)
