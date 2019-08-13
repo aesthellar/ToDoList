@@ -8,13 +8,9 @@ namespace InternshipProj.View
     /// </summary>
     public partial class TodoListControl : UserControl
     {
-        private TodoListVM _listVM;
-
         public TodoListControl()
         {
-            _listVM = new TodoListVM();
             InitializeComponent();
-            DataContext = _listVM;
 
             //if (!string.IsNullOrEmpty(Properties.Settings.Default.userSavePath))
             //{

@@ -83,8 +83,7 @@
                 <TabControl.ContentTemplate>
                     <DataTemplate DataType="{x:Type viewModel:TodoListVM}">
                         <!--Add ListView-->
-
-                        <local:TodoListControl DataContext="{Binding RelativeSource={RelativeSource AncestorType=TabControl, Mode=FindAncestor}, Path=SelectedItem.DataContext}"/>
+                        <local:TodoListControl DataContext="{Binding}"/>
                     </DataTemplate>
                 </TabControl.ContentTemplate>
             </TabControl>
