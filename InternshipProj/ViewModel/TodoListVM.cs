@@ -138,6 +138,7 @@ namespace InternshipProj.ViewModel
             BuildViewModels(loadedList);
         }
 
+
         public void InitializeList(string path)
         {
             var loadedList = CSVImporter.Load(path);

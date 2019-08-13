@@ -26,8 +26,8 @@ namespace InternshipProj.View
         public ToDoTabControl()
         {
             _tabList = new ListTabsVM();
-            InitializeComponent();
             DataContext = _tabList;
+            InitializeComponent();
         }
     }
 }

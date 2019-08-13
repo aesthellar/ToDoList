@@ -74,6 +74,7 @@ namespace InternshipProj.ViewModel
                     {
                         var list = (TodoListVM)obj;
                         TabLists.Remove(list);
+                        int count = TabLists.Count;
                     }
                     
                 }
