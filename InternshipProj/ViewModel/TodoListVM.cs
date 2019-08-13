@@ -82,7 +82,6 @@ namespace InternshipProj.ViewModel
                 foreach(TodoItem item in items)
                 {
                     var newItemVM = new TodoItemVM(item);
-                    newItemVM.PropertyChanged += TodoItemVM_PropertyChanged;
                     _itemList.Add(newItemVM);
                 }
             }
@@ -92,7 +91,6 @@ namespace InternshipProj.ViewModel
         {
             var newItem = new TodoItemVM();
             ItemList.Add(newItem);
-            newItem.PropertyChanged += TodoItemVM_PropertyChanged;
         }
 
         private void DeleteItem(object obj)
@@ -100,7 +98,6 @@ namespace InternshipProj.ViewModel
             if(obj is TodoItemVM)
             {
                 var item = (TodoItemVM)obj;
-                item.PropertyChanged -= TodoItemVM_PropertyChanged;
                 ItemList.Remove(item);
             }
         }
@@ -141,11 +138,6 @@ namespace InternshipProj.ViewModel
             BuildViewModels(loadedList);
         }
 
-        private void ChangeName(string name)
-        {
-            _listName = name;
-        }
-
         public void InitializeList(string path)
         {
             var loadedList = CSVImporter.Load(path);
@@ -162,12 +154,5 @@ namespace InternshipProj.ViewModel
             CSVExporter csvexp = new CSVExporter();
             csvexp.Save(items, path);
         }
-
-        private void TodoItemVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            var item = sender as TodoItemVM;
-            item.Update();
-        }
-
     }
 }

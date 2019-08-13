@@ -1,0 +1,39 @@
+--- TodoListVM.cs
++++ TodoListVM.cs
+@@ -63,7 +63,6 @@
+                 foreach(TodoItem item in items)
+                 {
+                     var newItemVM = new TodoItemVM(item);
+-                    newItemVM.PropertyChanged += TodoItemVM_PropertyChanged;
+                     _itemList.Add(newItemVM);
+                 }
+             }
+@@ -73,7 +72,6 @@
+         {
+             var newItem = new TodoItemVM();
+             ItemList.Add(newItem);
+-            newItem.PropertyChanged += TodoItemVM_PropertyChanged;
+         }
+ 
+         private void DeleteItem(object obj)
+@@ -81,7 +79,6 @@
+             if(obj is TodoItemVM)
+             {
+                 var item = (TodoItemVM)obj;
+-                item.PropertyChanged -= TodoItemVM_PropertyChanged;
+                 ItemList.Remove(item);
+             }
+         }
+@@ -138,12 +135,5 @@
+             CSVExporter csvexp = new CSVExporter();
+             csvexp.Save(items, path);
+         }
+-
+-        private void TodoItemVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+-        {
+-            var item = sender as TodoItemVM;
+-            item.Update();
+-        }
+-
+     }
+ }

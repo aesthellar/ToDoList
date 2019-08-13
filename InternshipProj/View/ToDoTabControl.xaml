@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:InternshipProj.View"
              xmlns:viewModel="clr-namespace:InternshipProj.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModel:ListTabsVM}">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -36,17 +37,20 @@
                                     <ControlTemplate TargetType="TabItem">
                                         <Grid Name="Panel">
                                             <ContentPresenter x:Name="ContentSite"
-                                                              VerticalAlignment="Center"
-                                                              HorizontalAlignment="Center"
-                                                              ContentSource="Header"
-                                                              Margin="10,2"/>
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                ContentSource="Header"
+                                                Margin="10,2"/>
                                         </Grid>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsSelected" Value="True">
-                                                <Setter TargetName="Panel" Property="Background" Value="Pink"/>
+                                                <Setter TargetName="Panel" Property="Background" Value="MistyRose"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="BorderThickness" Value="3"/>
                                             </Trigger>
                                             <Trigger Property="IsSelected" Value="False">
-                                                <Setter TargetName="Panel" Property="Background" Value="#01FFFFFF"/>
+                                                <Setter TargetName="Panel" Property="Background" Value="GhostWhite"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -54,33 +58,34 @@
                             </Setter>
                         </Style>
                     </TabControl.Resources>
-                    <ItemsControl.ItemTemplate>
+                    <TabControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewModel:TodoListVM}">
-                            <TabItem>
-                                <TabItem.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock
-                                            Text="{Binding ListName, Mode=OneWay}"
-                                            Background="Turquoise"
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Text="{Binding ListName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                             Margin="0,0,10,0"/>
-                                        <Button
+                                <Button
                                             Grid.Column="1"
                                             Content="X"
                                             Padding="3,0,3,0"
                                             BorderThickness="0"
+                                            Background="Transparent"
                                             Opacity=".5"
                                             Command="{Binding DataContext.DeleteList,
                                                 RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl},
                                                 Mode=OneWay}"
                                             CommandParameter="{Binding}"
                                         />
-                                    </StackPanel>
-                                </TabItem.Header>
-                                <!--Add ListView-->
-
-                            </TabItem>
+                            </StackPanel>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
+                    </TabControl.ItemTemplate>
+                    <TabControl.ContentTemplate>
+                        <DataTemplate DataType="{x:Type viewModel:TodoListVM}">
+                            <!--Add ListView-->
+                            <!--try using datatype. makes unique entry for each list-->
+                            <local:TodoListControl DataContext="{Binding}"/>
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
                 </TabControl>
             </DockPanel>
         </Grid>

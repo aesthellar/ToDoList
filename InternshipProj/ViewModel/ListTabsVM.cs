@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using InternshipProj.Utility;
@@ -55,6 +56,7 @@ namespace InternshipProj.ViewModel
         {
             TodoListVM list = new TodoListVM();
             TabLists.Add(list);
+            Console.Write(TabLists.Count);
         }
 
         private void Delete(object obj)
