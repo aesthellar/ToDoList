@@ -13,13 +13,6 @@ namespace InternshipProj.Tests
         public const string TestCaseFile1 = @"\..\..\Tests\TestFiles\testCase1.csv";
         public const string TestCaseFile3 = @"\..\..\Tests\TestFiles\testCase3.csv";
 
-        //List<TodoItem> testCaseItem1 = new List<TodoItem>
-        //{
-        //    new TodoItem("weeeeee", true),
-        //    new TodoItem("jfjiwef", false),
-        //    new TodoItem("ahhhhhhhhhhhhhhhhhhhhhhhh,h", true)
-        //};
-
         List<TodoItem> items1 = new List<TodoItem>
         {
             new TodoItem("desc1", true),
