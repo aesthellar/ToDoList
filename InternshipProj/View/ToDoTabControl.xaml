@@ -14,18 +14,35 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button
-                Grid.Row="0"
-                Content="Add New List"
+            <StackPanel 
+                Orientation="Horizontal" 
+                Grid.Row="0" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Right">
+                <Button
+                    Content="Add New List"
+                    FontSize="18"
+                    Margin="0,10"
+                    Padding="5"
+                    BorderThickness="0"
+                    Command="{Binding AddList,Mode=OneWay}"/>
+                <Button
+                    Content="Save"
                     FontSize="18"
                     Margin="10"
                     Padding="5"
                     BorderThickness="0"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Command="{Binding AddList,Mode=OneWay}"/>
+                    Command="{Binding SaveLists,Mode=OneWay}"/>
+                <Button
+                    Content="Load"
+                    FontSize="18"
+                    Margin="0,10,10,10"
+                    Padding="5"
+                    BorderThickness="0"
+                    Command="{Binding LoadLists,Mode=OneWay}" 
+                />
+            </StackPanel>
+            
             <TabControl
                     Grid.Row="1"
                     x:Name="TheTabControl"
@@ -47,9 +64,6 @@
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter TargetName="Panel" Property="Background" Value="MistyRose"/>
                                         </Trigger>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="BorderThickness" Value="3"/>
-                                        </Trigger>
                                         <Trigger Property="IsSelected" Value="False">
                                             <Setter TargetName="Panel" Property="Background" Value="GhostWhite"/>
                                         </Trigger>
@@ -64,7 +78,9 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                     Text="{Binding ListName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                            Margin="0,0,10,0"/>
+                                    Margin="0,0,10,0"
+                                    FontSize="18"
+                                    />
                             <Button
                                 Grid.Column="1"
                                 Content="X"

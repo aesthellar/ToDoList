@@ -1,12 +1,14 @@
-﻿using InternshipProj.Model;
+﻿using System;
+using InternshipProj.Model;
 using System.Collections.Generic;
 using System.IO;
+using InternshipProj.ViewModel;
 
 namespace InternshipProj.Utility
 {
     public static class CSVImporter
     {
-        public static List<TodoItem> Load()
+        public static List<TodoListVM> Load()
         {
             Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
             ofd.DefaultExt = ".csv";
@@ -22,36 +24,44 @@ namespace InternshipProj.Utility
 
             return null;
         }
-        public static List<TodoItem> Load(string fileName)
+        public static List<TodoListVM> Load(string fileName)
         {
             return CSVRead(fileName);
         }
-        private static List<TodoItem> CSVRead(string userFile)
+        private static List<TodoListVM> CSVRead(string userFile)
         {
-            List<TodoItem> list = new List<TodoItem>();
+            List<TodoListVM> lists = new List<TodoListVM>();
 
             using (StreamReader sr = new StreamReader(userFile))
             {
                 while (!sr.EndOfStream)
                 {
-                    TodoItem item = new TodoItem();
+                    TodoListVM list = new TodoListVM();
+                    
                     string line = sr.ReadLine();
-                    string[] splitArr = line.Split(new[] { '\"' });
-                    item.Desc = splitArr[1];
-                    if (splitArr[splitArr.Length-1] == ",Done")
+                    string[] splitArr = line.Split(new string[] { "\"," }, StringSplitOptions.None);
+                    list.ListName = splitArr[0];
+
+                    for (int x = 0; x < splitArr.Length - 2; x+=2)
                     {
-                        item.Done = true;
+                        TodoItemVM item = new TodoItemVM();
+                        if (splitArr[x + 2] == "Done")
+                        {
+                            item.Done = true;
+                        }
+                        else
+                        {
+                            item.Done = false;
+                        }
+
+                        item.Desc = splitArr[x+1];
+                        list.ItemList.Add(item);
                     }
-                    else
-                    {
-                        item.Done = false;
-                    }
-                    list.Add(item);
+                    
+                    lists.Add(list);
                 }
             }
-
-            return list;
+            return lists;
         }
-
     }
 }

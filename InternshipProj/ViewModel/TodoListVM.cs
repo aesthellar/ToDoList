@@ -2,9 +2,6 @@
 using InternshipProj.Utility;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Dynamic;
-using System.Windows;
 
 namespace InternshipProj.ViewModel
 {
@@ -12,7 +9,7 @@ namespace InternshipProj.ViewModel
     {
         private string _listName;
         private ObservableCollection<TodoItemVM> _itemList;
-        private RelayCommand _addCommand, _deleteCommand, _saveCommand, _loadCommand, _changeNameCommand;
+        private RelayCommand _addCommand, _deleteCommand, _changeNameCommand;
 
         public ObservableCollection<TodoItemVM> ItemList
         {
@@ -39,16 +36,6 @@ namespace InternshipProj.ViewModel
             get { return _deleteCommand; }
         }
 
-        public RelayCommand SaveCommand
-        {
-            get { return _saveCommand; }
-        }
-
-        public RelayCommand LoadCommand
-        {
-            get { return _loadCommand; }
-        }
-
         public RelayCommand ChangeNameCommand
         {
             get { return _changeNameCommand; }
@@ -61,8 +48,6 @@ namespace InternshipProj.ViewModel
             BuildViewModels(items);
             _addCommand = new RelayCommand(AddItem);
             _deleteCommand = new RelayCommand(DeleteItem);
-            _saveCommand = new RelayCommand(SaveList,CanSave);
-            _loadCommand = new RelayCommand(LoadList);
         }
 
         public TodoListVM()
@@ -71,8 +56,6 @@ namespace InternshipProj.ViewModel
             _itemList = new ObservableCollection<TodoItemVM>();
             _addCommand = new RelayCommand(AddItem);
             _deleteCommand = new RelayCommand(DeleteItem);
-            _saveCommand = new RelayCommand(SaveList, CanSave);
-            _loadCommand = new RelayCommand(LoadList);
         }
 
         private void BuildViewModels(List<TodoItem> items)
@@ -95,65 +78,11 @@ namespace InternshipProj.ViewModel
 
         private void DeleteItem(object obj)
         {
-            if(obj is TodoItemVM)
+            if (obj is TodoItemVM)
             {
-                var item = (TodoItemVM)obj;
+                var item = (TodoItemVM) obj;
                 ItemList.Remove(item);
             }
-        }
-
-        private void SaveList(object obj)
-        {
-            List<TodoItem> items = new List<TodoItem>();
-            foreach(TodoItemVM itemVM in ItemList)
-            {
-                items.Add(itemVM.Item);
-            }
-            CSVExporter csvexp = new CSVExporter();
-            csvexp.Save(items);
-            Properties.Settings.Default.userSavePath = csvexp.FileName;
-            Properties.Settings.Default.Save();
-        }
-
-        private bool CanSave(object obj)
-        {
-            return ItemList.Count > 0;
-        }
-
-        private void LoadList(object obj)
-        {
-            if(ItemList.Count>0)
-            {
-                //show message box with ok/cancel if user wants to clear items
-                var result = MessageBox.Show("Loading a new list will clear your current list. Continue?", "Load Warning", MessageBoxButton.OKCancel);
-                if (!result.Equals(MessageBoxResult.OK))
-                {
-                    return; //if cancel, return
-                }
-
-                ItemList.Clear();   //otherwise, continue
-            }
-
-            var loadedList = CSVImporter.Load();
-            BuildViewModels(loadedList);
-        }
-
-
-        public void InitializeList(string path)
-        {
-            var loadedList = CSVImporter.Load(path);
-            BuildViewModels(loadedList);
-        }
-
-        public void ExitSave(string path)
-        {
-            List<TodoItem> items = new List<TodoItem>();
-            foreach (TodoItemVM itemVM in ItemList)
-            {
-                items.Add(itemVM.Item);
-            }
-            CSVExporter csvexp = new CSVExporter();
-            csvexp.Save(items, path);
         }
     }
 }

@@ -3,15 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using InternshipProj.ViewModel;
 
 namespace InternshipProj.View
@@ -28,6 +20,18 @@ namespace InternshipProj.View
             _tabList = new ListTabsVM();
             DataContext = _tabList;
             InitializeComponent();
+
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.userSavePath))
+            {
+                _tabList.InitializeList(Properties.Settings.Default.userSavePath);
+            }
+        }
+        public void OnClose()
+        {
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.userSavePath))
+            {
+                _tabList.ExitSave(Properties.Settings.Default.userSavePath);
+            }
         }
     }
 }

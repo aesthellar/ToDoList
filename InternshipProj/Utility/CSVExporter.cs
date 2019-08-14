@@ -1,7 +1,7 @@
-﻿using InternshipProj.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using InternshipProj.ViewModel;
 
 namespace InternshipProj.Utility
 {
@@ -13,7 +13,7 @@ namespace InternshipProj.Utility
         public string FileName { get { return _fileName; } }
         
         //Method to open save dialog
-        public void Save(List<TodoItem> items)
+        public void Save(List<TodoListVM> lists)
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.DefaultExt = ".csv";
@@ -24,40 +24,45 @@ namespace InternshipProj.Utility
             if(result == true)
             {
                 _fileName = dlg.FileName;
-                CSVwrite(items);
+                CSVwrite(lists);
             }
         }
 
-        public void Save(List<TodoItem> items, string path)
+        public void Save(List<TodoListVM> lists, string path)
         {
             _fileName = path;
-            CSVwrite(items);
+            CSVwrite(lists);
         }
         
         //Method to create and write into CSV
-        private void CSVwrite(List<TodoItem> items)
+        private void CSVwrite(List<TodoListVM> lists)
         {
             using (StreamWriter sw = new StreamWriter(_fileName))
             {
                 StringBuilder sb = new StringBuilder();
 
-                foreach (TodoItem item in items)
+                foreach (TodoListVM list in lists)
                 {
-                    var itemDescription = CleanReservedCharacters(item.Desc);
-                    string done;
-                    sb.Append("\"");
-                    sb.Append(itemDescription);
-                    sb.Append("\"");
-                    sb.Append(",");
-                    if(item.Done)
+                    var ListName = CleanReservedCharacters(list.ListName);
+                    sb.Append(ListName);
+
+                    foreach (TodoItemVM item in list.ItemList)
                     {
-                        done = "Done";
+                        var desc = CleanReservedCharacters(item.Desc);
+                        string done;
+                        sb.Append("\",");
+                        sb.Append(desc);
+                        sb.Append("\",");
+                        if (item.Done)
+                        {
+                            done = "Done";
+                        }
+                        else
+                        {
+                            done = "Not done";
+                        }
+                        sb.Append(done);
                     }
-                    else
-                    {
-                        done = "Not done";
-                    }
-                    sb.Append(done);
                     sw.WriteLine(sb.ToString());
                     sb.Clear();
                 }

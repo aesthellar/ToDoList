@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using InternshipProj.Utility;
@@ -9,7 +8,7 @@ namespace InternshipProj.ViewModel
     public class ListTabsVM : ViewModelBase
     {
         private ObservableCollection<TodoListVM> _tabLists;
-        private RelayCommand _deleteList, _addList;
+        private RelayCommand _deleteList, _addList, _saveLists, _loadLists;
 
         public ObservableCollection<TodoListVM> TabLists
         {
@@ -26,6 +25,15 @@ namespace InternshipProj.ViewModel
             get { return _addList; }
         }
 
+        public RelayCommand SaveLists
+        {
+            get { return _saveLists; }
+        }
+
+        public RelayCommand LoadLists
+        {
+            get { return _loadLists; }
+        }
         public ListTabsVM()
         {
             _tabLists = new ObservableCollection<TodoListVM>();
@@ -33,12 +41,19 @@ namespace InternshipProj.ViewModel
             _tabLists.Add(list);
             _deleteList = new RelayCommand(Delete);
             _addList = new RelayCommand(Add);
+            _saveLists = new RelayCommand(Save, CanSave);
+            _loadLists = new RelayCommand(Load);
         }
 
 
         public ListTabsVM(List<TodoListVM> lists)
         {
             BuildViewModels(lists);
+            _tabLists = new ObservableCollection<TodoListVM>();
+            _deleteList = new RelayCommand(Delete);
+            _addList = new RelayCommand(Add);
+            _saveLists = new RelayCommand(Save, CanSave);
+            _loadLists = new RelayCommand(Load);
         }
 
         private void BuildViewModels(List<TodoListVM> lists)
@@ -52,11 +67,46 @@ namespace InternshipProj.ViewModel
             }
         }
 
+        private void Load(object obj)
+        {
+            if (TabLists.Count > 0)
+            {
+                //show message box with ok/cancel if user wants to clear items
+                var result = MessageBox.Show("Loading saved lists will clear your current lists. Continue?", "Load Warning", MessageBoxButton.OKCancel);
+                if (!result.Equals(MessageBoxResult.OK))
+                {
+                    return; //if cancel, return
+                }
+
+                TabLists.Clear();   //otherwise, continue
+            }
+
+            var loadedList = CSVImporter.Load();
+            BuildViewModels(loadedList);
+        }
+
+        private bool CanSave(object obj)
+        {
+            return TabLists.Count > 0;
+        }
+
+        private void Save(object obj)
+        {
+            List<TodoListVM> lists = new List<TodoListVM>();
+            foreach (TodoListVM list in TabLists)
+            {
+                lists.Add(list);
+            }
+            CSVExporter csvexp = new CSVExporter();
+            csvexp.Save(lists);
+            Properties.Settings.Default.userSavePath = csvexp.FileName;
+            Properties.Settings.Default.Save();
+        }
+
         private void Add(object obj)
         {
             TodoListVM list = new TodoListVM();
             TabLists.Add(list);
-            Console.Write(TabLists.Count);
         }
 
         private void Delete(object obj)
@@ -86,6 +136,23 @@ namespace InternshipProj.ViewModel
             }
         }
 
+
+        public void InitializeList(string path)
+        {
+            var loadedList = CSVImporter.Load(path);
+            BuildViewModels(loadedList);
+        }
+
+        public void ExitSave(string path)
+        {
+            List<TodoListVM> lists = new List<TodoListVM>();
+            foreach (TodoListVM list in TabLists)
+            {
+                lists.Add(list);
+            }
+            CSVExporter csvexp = new CSVExporter();
+            csvexp.Save(lists, path);
+        }
 
     }
 }
