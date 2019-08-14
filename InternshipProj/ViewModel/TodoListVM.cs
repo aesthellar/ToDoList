@@ -9,7 +9,7 @@ namespace InternshipProj.ViewModel
     {
         private string _listName;
         private ObservableCollection<TodoItemVM> _itemList;
-        private RelayCommand _addCommand, _deleteCommand, _changeNameCommand;
+        private RelayCommand _addCommand, _deleteCommand;
 
         public ObservableCollection<TodoItemVM> ItemList
         {
@@ -34,11 +34,6 @@ namespace InternshipProj.ViewModel
         public RelayCommand DeleteCommand
         {
             get { return _deleteCommand; }
-        }
-
-        public RelayCommand ChangeNameCommand
-        {
-            get { return _changeNameCommand; }
         }
 
         public TodoListVM(List<TodoItem> items, string name)

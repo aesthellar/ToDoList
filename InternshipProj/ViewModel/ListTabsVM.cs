@@ -37,8 +37,6 @@ namespace InternshipProj.ViewModel
         public ListTabsVM()
         {
             _tabLists = new ObservableCollection<TodoListVM>();
-            TodoListVM list = new TodoListVM();
-            _tabLists.Add(list);
             _deleteList = new RelayCommand(Delete);
             _addList = new RelayCommand(Add);
             _saveLists = new RelayCommand(Save, CanSave);
