@@ -6,9 +6,10 @@
         xmlns:view="clr-namespace:InternshipProj.View"
         xmlns:local="clr-namespace:InternshipProj"
         mc:Ignorable="d"
-        Title="To Do Boi" Height="450" Width="800"
+        Title="To Do Boi" MinWidth="600" MinHeight="600"
+        WindowState="Maximized"
         Closed="Window_Closed">
-    <Grid x:Name="Tab" xmlns:local="clr-namespace:InternshipProj.View">
+    <Grid x:Name="Tab" xmlns:local="clr-namespace:InternshipProj.View" Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>

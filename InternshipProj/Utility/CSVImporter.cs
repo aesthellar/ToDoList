@@ -39,7 +39,7 @@ namespace InternshipProj.Utility
                     TodoListVM list = new TodoListVM();
                     
                     string line = sr.ReadLine();
-                    string[] splitArr = line.Split(new string[] { "\"," }, StringSplitOptions.None);
+                    string[] splitArr = line.Split(new string[] { "-," }, StringSplitOptions.None);
                     list.ListName = splitArr[0];
 
                     for (int x = 0; x < splitArr.Length - 2; x+=2)

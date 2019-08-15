@@ -8,7 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:ListTabsVM}">
-    <Grid>
+    <Grid
+        Margin="250,50">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -44,6 +45,7 @@
             </StackPanel>
             
             <TabControl
+                    BorderThickness="0"
                     Grid.Row="1"
                     x:Name="TheTabControl"
                     ItemsSource="{Binding TabLists,Mode=OneWay}"
@@ -99,7 +101,9 @@
                 <TabControl.ContentTemplate>
                     <DataTemplate DataType="{x:Type viewModel:TodoListVM}">
                         <!--Add ListView-->
-                        <local:TodoListControl DataContext="{Binding}"/>
+                        <local:TodoListControl 
+                            BorderThickness ="0" 
+                            DataContext="{Binding}"/>
                     </DataTemplate>
                 </TabControl.ContentTemplate>
             </TabControl>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using InternshipProj.ViewModel;
@@ -43,16 +44,15 @@ namespace InternshipProj.Utility
 
                 foreach (TodoListVM list in lists)
                 {
-                    var ListName = CleanReservedCharacters(list.ListName);
-                    sb.Append(ListName);
+                    sb.Append(list.ListName);
 
                     foreach (TodoItemVM item in list.ItemList)
                     {
-                        var desc = CleanReservedCharacters(item.Desc);
+                        Console.Write(item.Desc);
                         string done;
-                        sb.Append("\",");
-                        sb.Append(desc);
-                        sb.Append("\",");
+                        sb.Append("-,");
+                        sb.Append(item.Desc);
+                        sb.Append("-,");
                         if (item.Done)
                         {
                             done = "Done";
@@ -67,17 +67,6 @@ namespace InternshipProj.Utility
                     sb.Clear();
                 }
             }
-        }
-
-        private string CleanReservedCharacters(string description)
-        {
-            if (description.Contains("\""))
-            {
-                string cleanDesc = description.Replace("\"", "\\\"");
-                return cleanDesc;
-            }
-
-            return description;
         }
     }
 }

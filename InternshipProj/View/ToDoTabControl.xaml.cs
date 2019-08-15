@@ -26,13 +26,18 @@ namespace InternshipProj.View
         public ToDoTabControl()
         {
             _tabList = new ListTabsVM();
-            InitializeComponent();
-            DataContext = _tabList;
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.userSavePath))
             {
                 _tabList.InitializeList(Properties.Settings.Default.userSavePath);
             }
+
+            DataContext = _tabList;
+
+            InitializeComponent();
+            
+
+            
         }
 
         public void OnClose()

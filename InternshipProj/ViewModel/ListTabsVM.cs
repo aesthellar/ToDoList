@@ -60,7 +60,7 @@ namespace InternshipProj.ViewModel
             {
                 foreach (TodoListVM list in lists)
                 {
-                    _tabLists.Add(list);
+                    TabLists.Add(list);
                 }
             }
         }
