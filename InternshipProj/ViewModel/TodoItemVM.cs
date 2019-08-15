@@ -4,60 +4,36 @@ namespace InternshipProj.ViewModel
 {
     public class TodoItemVM : ViewModelBase
     {
-        private string _desc;
-        private bool _done;
-        private TodoItem _item;
-
         public string Desc
         {
-            get { return _desc; }
+            get { return Item.Desc; }
             set
             {
-                _desc = value;
+                Item.Desc = value;
                 OnPropertyChanged();
             }
         }
 
         public bool Done
         {
-            get { return _done; }
+            get { return Item.Done; }
             set
             {
-                _done = value;
+                Item.Done = value;
                 OnPropertyChanged();
             }
         }
 
-        public TodoItem Item
-        {
-            get { return _item; }
-        }
-
-        public TodoItemVM(string desc, bool done)
-        {
-            _desc = desc;
-            _done = done;
-            _item = new TodoItem(desc, done);
-        }
+        public TodoItem Item { get; }
 
         public TodoItemVM(TodoItem item)
         {
-            _desc = item.Desc;
-            _done = item.Done;
-            _item = item;
+            Item = item;
         }
 
         public TodoItemVM()
         {
-            _desc = string.Empty;
-            _done = false;
-            _item = new TodoItem();
-        }
-
-        public void Update()
-        {
-            _item.Desc = Desc;
-            _item.Done = Done;
+            Item = new TodoItem();
         }
     }
 }

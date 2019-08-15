@@ -1,19 +1,19 @@
-﻿using InternshipProj.Model;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using InternshipProj.ViewModel;
 
 namespace InternshipProj.Utility
 {
     public class CSVExporter
     {
-        private string _fileName;
         public const string EXTFILTER = "CSV Files|*.csv";
 
-        public string FileName { get { return _fileName; } }
-        
+        public string FileName { get; private set; }
+
         //Method to open save dialog
-        public void Save(List<TodoItem> items)
+        public void Save(List<TodoListVM> lists)
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.DefaultExt = ".csv";
@@ -23,56 +23,49 @@ namespace InternshipProj.Utility
 
             if(result == true)
             {
-                _fileName = dlg.FileName;
-                CSVwrite(items);
+                FileName = dlg.FileName;
+                CSVwrite(lists);
             }
         }
 
-        public void Save(List<TodoItem> items, string path)
+        public void Save(List<TodoListVM> lists, string path)
         {
-            _fileName = path;
-            CSVwrite(items);
+            FileName = path;
+            CSVwrite(lists);
         }
         
         //Method to create and write into CSV
-        private void CSVwrite(List<TodoItem> items)
+        private void CSVwrite(List<TodoListVM> lists)
         {
-            using (StreamWriter sw = new StreamWriter(_fileName))
+            using (StreamWriter sw = new StreamWriter(FileName))
             {
                 StringBuilder sb = new StringBuilder();
 
-                foreach (TodoItem item in items)
+                foreach (TodoListVM list in lists)
                 {
-                    var itemDescription = CleanReservedCharacters(item.Desc);
-                    string done;
-                    sb.Append("\"");
-                    sb.Append(itemDescription);
-                    sb.Append("\"");
-                    sb.Append(",");
-                    if(item.Done)
+                    sb.Append(list.ListName);
+
+                    foreach (TodoItemVM item in list.ItemList)
                     {
-                        done = "Done";
+                        Console.Write(item.Desc);
+                        string done;
+                        sb.Append("-,");
+                        sb.Append(item.Desc);
+                        sb.Append("-,");
+                        if (item.Done)
+                        {
+                            done = "Done";
+                        }
+                        else
+                        {
+                            done = "Not done";
+                        }
+                        sb.Append(done);
                     }
-                    else
-                    {
-                        done = "Not done";
-                    }
-                    sb.Append(done);
                     sw.WriteLine(sb.ToString());
                     sb.Clear();
                 }
             }
-        }
-
-        private string CleanReservedCharacters(string description)
-        {
-            if (description.Contains("\""))
-            {
-                string cleanDesc = description.Replace("\"", "\\\"");
-                return cleanDesc;
-            }
-
-            return description;
         }
     }
 }

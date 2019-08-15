@@ -4,19 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:InternshipProj.View"
-        xmlns:local="clr-namespace:InternshipProj"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        Closed="Window_Closed">
-    <Grid>
+        Title="To Do Boi" MinWidth="600" MinHeight="600"
+        WindowState="Maximized"
+        Closing="MainWindow_OnClosing">
+    <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-      <view:TodoListControl
-         x:Name="ListControl"
+      <view:ToDoTabControl
+         x:Name="TabControl"
          HorizontalAlignment="Stretch"
          VerticalAlignment="Stretch"/>
     </Grid>
