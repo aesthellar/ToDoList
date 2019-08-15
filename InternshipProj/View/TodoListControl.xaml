@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:TodoListVM}">
 
-    <Grid>
+    <Grid Margin="60">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -19,14 +19,13 @@
         <TextBox
             Grid.Row="0"
             FontSize="30"
-            Margin="20"
+            Margin="0,30"
             Height="60"
             VerticalContentAlignment="Center"
-            Padding="10,5"
+            Padding="20,5"
             BorderThickness ="0"
             Background="GhostWhite"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center"
+            Foreground="#5B5B5B"
             Text="{Binding ListName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
             />
         <Grid
@@ -44,25 +43,11 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock
-                Text="Description"
-                HorizontalAlignment="Stretch"
+                Text="To Do :"
+                HorizontalAlignment="Center"
                 FontSize="20"
-                Margin="10"
+                Margin="0,10,0,30"
                 />
-            <TextBlock
-                Grid.Column="1"
-                Text="Check"
-                HorizontalAlignment="Right"
-                FontSize="20"
-                Margin="10"
-            />
-            <TextBlock
-                Grid.Column="2"
-                Text="Delete"
-                HorizontalAlignment="Right"
-                FontSize="20"
-                Margin="10"
-            />
         </Grid>
         <ItemsControl
             ItemsSource="{Binding ItemList,Mode=OneWay}"
@@ -90,14 +75,6 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Ellipse
-                            Grid.Column="0"
-                            Width="8"
-                            Height="8"
-                            Fill="Black"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Margin="20,10"/>
                         <TextBox
                             Grid.Column="1"
                             Height="40"
@@ -111,7 +88,7 @@
                             Margin="0,10,10,5"
                             Text="{Binding Desc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                             />
-                        <CheckBox
+                        <RadioButton
                             Grid.Column="2"
                             Margin="50,10,55,10"
                             VerticalAlignment="Center"

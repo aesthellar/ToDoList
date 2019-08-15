@@ -49,7 +49,7 @@
                     Grid.Row="1"
                     x:Name="TheTabControl"
                     ItemsSource="{Binding TabLists,Mode=OneWay}"
-                    TabStripPlacement="Top">
+                    TabStripPlacement="Left">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -60,14 +60,14 @@
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Center"
                                                 ContentSource="Header"
-                                                Margin="10,2"/>
+                                                Margin="50,20"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Panel" Property="Background" Value="MistyRose"/>
+                                            <Setter TargetName="Panel" Property="Background" Value="White"/>
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Panel" Property="Background" Value="GhostWhite"/>
+                                            <Setter TargetName="Panel" Property="Background" Value="#eaeaea"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -80,6 +80,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock
                                     Text="{Binding ListName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    HorizontalAlignment="Left"
                                     Margin="0,0,10,0"
                                     FontSize="18"
                                     />
