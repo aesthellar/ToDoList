@@ -84,7 +84,6 @@
                                     FontSize="18"
                                     />
                             <Button
-                                Grid.Column="1"
                                 Content="X"
                                 Padding="3,0,3,0"
                                 BorderThickness="0"

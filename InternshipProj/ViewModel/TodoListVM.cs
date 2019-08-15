@@ -8,13 +8,8 @@ namespace InternshipProj.ViewModel
     public class TodoListVM : ViewModelBase
     {
         private string _listName;
-        private ObservableCollection<TodoItemVM> _itemList;
-        private RelayCommand _addCommand, _deleteCommand;
 
-        public ObservableCollection<TodoItemVM> ItemList
-        {
-            get { return _itemList; }
-        }
+        public ObservableCollection<TodoItemVM> ItemList { get; }
 
         public string ListName
         {
@@ -26,31 +21,25 @@ namespace InternshipProj.ViewModel
             }
         }
 
-        public RelayCommand AddCommand
-        {
-            get { return _addCommand; }
-        }
+        public RelayCommand AddCommand { get; }
 
-        public RelayCommand DeleteCommand
-        {
-            get { return _deleteCommand; }
-        }
+        public RelayCommand DeleteCommand { get; }
 
         public TodoListVM(List<TodoItem> items, string name)
         {
             _listName = name;
-            _itemList = new ObservableCollection<TodoItemVM>();
+            ItemList = new ObservableCollection<TodoItemVM>();
             BuildViewModels(items);
-            _addCommand = new RelayCommand(AddItem);
-            _deleteCommand = new RelayCommand(DeleteItem);
+            AddCommand = new RelayCommand(AddItem);
+            DeleteCommand = new RelayCommand(DeleteItem);
         }
 
         public TodoListVM()
         {
             _listName = "New List";
-            _itemList = new ObservableCollection<TodoItemVM>();
-            _addCommand = new RelayCommand(AddItem);
-            _deleteCommand = new RelayCommand(DeleteItem);
+            ItemList = new ObservableCollection<TodoItemVM>();
+            AddCommand = new RelayCommand(AddItem);
+            DeleteCommand = new RelayCommand(DeleteItem);
         }
 
         private void BuildViewModels(List<TodoItem> items)
@@ -60,7 +49,7 @@ namespace InternshipProj.ViewModel
                 foreach(TodoItem item in items)
                 {
                     var newItemVM = new TodoItemVM(item);
-                    _itemList.Add(newItemVM);
+                    ItemList.Add(newItemVM);
                 }
             }
         }

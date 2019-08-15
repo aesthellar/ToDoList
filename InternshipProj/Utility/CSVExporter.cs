@@ -8,11 +8,10 @@ namespace InternshipProj.Utility
 {
     public class CSVExporter
     {
-        private string _fileName;
         public const string EXTFILTER = "CSV Files|*.csv";
 
-        public string FileName { get { return _fileName; } }
-        
+        public string FileName { get; private set; }
+
         //Method to open save dialog
         public void Save(List<TodoListVM> lists)
         {
@@ -24,21 +23,21 @@ namespace InternshipProj.Utility
 
             if(result == true)
             {
-                _fileName = dlg.FileName;
+                FileName = dlg.FileName;
                 CSVwrite(lists);
             }
         }
 
         public void Save(List<TodoListVM> lists, string path)
         {
-            _fileName = path;
+            FileName = path;
             CSVwrite(lists);
         }
         
         //Method to create and write into CSV
         private void CSVwrite(List<TodoListVM> lists)
         {
-            using (StreamWriter sw = new StreamWriter(_fileName))
+            using (StreamWriter sw = new StreamWriter(FileName))
             {
                 StringBuilder sb = new StringBuilder();
 

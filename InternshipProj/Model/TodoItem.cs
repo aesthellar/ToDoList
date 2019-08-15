@@ -2,22 +2,19 @@
 {
     public class TodoItem
     {
-        private string _desc;
-        private bool _done;
-
-        public string Desc { get { return _desc; } set { _desc = value; } }
-        public bool Done { get { return _done; } set { _done = value; } }
+        public string Desc { get; set; }
+        public bool Done { get; set; }
 
         public TodoItem(string desc, bool done)
         {
-            _desc = desc;
-            _done = done;
+            Desc = desc;
+            Done = done;
         }
 
         public TodoItem()
         {
-            _desc = string.Empty;
-            _done = false;
+            Desc = string.Empty;
+            Done = false;
         }
     }
 }

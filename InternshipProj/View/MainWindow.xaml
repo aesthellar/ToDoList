@@ -4,12 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:InternshipProj.View"
-        xmlns:local="clr-namespace:InternshipProj"
         mc:Ignorable="d"
         Title="To Do Boi" MinWidth="600" MinHeight="600"
         WindowState="Maximized"
-        Closed="Window_Closed">
-    <Grid x:Name="Tab" xmlns:local="clr-namespace:InternshipProj.View" Background="WhiteSmoke">
+        Closing="MainWindow_OnClosing">
+    <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>

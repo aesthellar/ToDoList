@@ -35,22 +35,6 @@ namespace InternshipProj.View
             DataContext = _tabList;
 
             InitializeComponent();
-            
-
-            
-        }
-
-        public void OnClose()
-        {
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.userSavePath))
-            {
-                _tabList.ExitSave(Properties.Settings.Default.userSavePath);
-            }
-        }
-
-        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

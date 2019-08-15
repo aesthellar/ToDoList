@@ -7,51 +7,23 @@ namespace InternshipProj.ViewModel
 {
     public class ListTabsVM : ViewModelBase
     {
-        private ObservableCollection<TodoListVM> _tabLists;
-        private RelayCommand _deleteList, _addList, _saveLists, _loadLists;
+        public ObservableCollection<TodoListVM> TabLists { get; }
 
-        public ObservableCollection<TodoListVM> TabLists
-        {
-            get { return _tabLists; }
-        }
+        public RelayCommand DeleteList { get; }
 
-        public RelayCommand DeleteList
-        {
-            get { return _deleteList; }
-        }
+        public RelayCommand AddList { get; }
 
-        public RelayCommand AddList
-        {
-            get { return _addList; }
-        }
+        public RelayCommand SaveLists { get; }
 
-        public RelayCommand SaveLists
-        {
-            get { return _saveLists; }
-        }
+        public RelayCommand LoadLists { get; }
 
-        public RelayCommand LoadLists
-        {
-            get { return _loadLists; }
-        }
         public ListTabsVM()
         {
-            _tabLists = new ObservableCollection<TodoListVM>();
-            _deleteList = new RelayCommand(Delete);
-            _addList = new RelayCommand(Add);
-            _saveLists = new RelayCommand(Save, CanSave);
-            _loadLists = new RelayCommand(Load);
-        }
-
-
-        public ListTabsVM(List<TodoListVM> lists)
-        {
-            BuildViewModels(lists);
-            _tabLists = new ObservableCollection<TodoListVM>();
-            _deleteList = new RelayCommand(Delete);
-            _addList = new RelayCommand(Add);
-            _saveLists = new RelayCommand(Save, CanSave);
-            _loadLists = new RelayCommand(Load);
+            TabLists = new ObservableCollection<TodoListVM>();
+            DeleteList = new RelayCommand(Delete);
+            AddList = new RelayCommand(Add);
+            SaveLists = new RelayCommand(Save, CanSave);
+            LoadLists = new RelayCommand(Load);
         }
 
         private void BuildViewModels(List<TodoListVM> lists)
@@ -81,6 +53,7 @@ namespace InternshipProj.ViewModel
 
             var loadedList = CSVImporter.Load();
             BuildViewModels(loadedList);
+            Properties.Settings.Default.Save();
         }
 
         private bool CanSave(object obj)
@@ -124,7 +97,6 @@ namespace InternshipProj.ViewModel
                         TabLists.Remove(list);
                         int count = TabLists.Count;
                     }
-                    
                 }
                 else
                 {
@@ -133,7 +105,6 @@ namespace InternshipProj.ViewModel
                 }
             }
         }
-
 
         public void InitializeList(string path)
         {
@@ -151,6 +122,5 @@ namespace InternshipProj.ViewModel
             CSVExporter csvexp = new CSVExporter();
             csvexp.Save(lists, path);
         }
-
     }
 }

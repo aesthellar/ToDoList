@@ -1,5 +1,4 @@
 ﻿using System;
-using InternshipProj.Model;
 using System.Collections.Generic;
 using System.IO;
 using InternshipProj.ViewModel;
@@ -24,10 +23,12 @@ namespace InternshipProj.Utility
 
             return null;
         }
+
         public static List<TodoListVM> Load(string fileName)
         {
             return CSVRead(fileName);
         }
+
         private static List<TodoListVM> CSVRead(string userFile)
         {
             List<TodoListVM> lists = new List<TodoListVM>();

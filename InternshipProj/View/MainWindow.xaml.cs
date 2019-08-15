@@ -1,5 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Forms.VisualStyles;
+using InternshipProj.ViewModel;
 
 namespace InternshipProj.View
 {
@@ -13,9 +16,14 @@ namespace InternshipProj.View
             InitializeComponent();
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            //listControl.OnClose();
+            var tabControlVM = TabControl.DataContext as ListTabsVM;
+            if (tabControlVM == null)
+            {
+                return;
+            }
+            tabControlVM.ExitSave(Properties.Settings.Default.userSavePath);
         }
     }
 }
