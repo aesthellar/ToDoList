@@ -7,9 +7,20 @@ namespace InternshipProj.ViewModel
 {
     public class TodoListVM : ViewModelBase
     {
+        private bool _prioritizeToggle;
         private string _listName;
 
         public ObservableCollection<TodoItemVM> ItemList { get; }
+
+        public bool PrioritizeToggle
+        {
+            get { return _prioritizeToggle; }
+            set
+            {
+                _prioritizeToggle = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string ListName
         {
@@ -20,26 +31,32 @@ namespace InternshipProj.ViewModel
                 OnPropertyChanged();
             }
         }
-
         public RelayCommand AddCommand { get; }
-
         public RelayCommand DeleteCommand { get; }
+        public RelayCommand PrioritizeCommand { get; }
+        public RelayCommand ToggleList { get; }
 
         public TodoListVM(List<TodoItem> items, string name)
         {
             _listName = name;
+            _prioritizeToggle = false;
             ItemList = new ObservableCollection<TodoItemVM>();
             BuildViewModels(items);
             AddCommand = new RelayCommand(AddItem);
             DeleteCommand = new RelayCommand(DeleteItem);
+            PrioritizeCommand = new RelayCommand(Prioritize);
+            ToggleList = new RelayCommand(Toggle);
         }
 
         public TodoListVM()
         {
             _listName = "New List";
+            _prioritizeToggle = false;
             ItemList = new ObservableCollection<TodoItemVM>();
             AddCommand = new RelayCommand(AddItem);
             DeleteCommand = new RelayCommand(DeleteItem);
+            PrioritizeCommand = new RelayCommand(Prioritize);
+            ToggleList = new RelayCommand(Toggle);
         }
 
         private void BuildViewModels(List<TodoItem> items)
@@ -58,6 +75,7 @@ namespace InternshipProj.ViewModel
         {
             var newItem = new TodoItemVM();
             ItemList.Add(newItem);
+            newItem.Priority = ItemList.Count;
         }
 
         private void DeleteItem(object obj)
@@ -66,6 +84,50 @@ namespace InternshipProj.ViewModel
             {
                 var item = (TodoItemVM) obj;
                 ItemList.Remove(item);
+                foreach (TodoItemVM vm in ItemList)
+                {
+                    vm.Priority = ItemList.IndexOf(vm) + 1;
+                }
+            }
+        }
+
+        private void Toggle(object obj)
+        {
+            if (PrioritizeToggle == false)
+            {
+                PrioritizeToggle = true;
+            }
+            else
+            {
+                PrioritizeToggle = false;
+            }
+        }
+
+        public void Prioritize(object obj)
+        {
+            if (obj is TodoItemVM)
+            {
+                var item = (TodoItemVM)obj;
+                if (ItemList.Count > 1 && item.Priority > 0)
+                {
+                    int priority = (int)item.Priority;
+                    if (priority >= ItemList.Count)
+                    {
+                        int newItems = priority - ItemList.Count;
+                        for (int i = 1; i <= newItems; i++)
+                        {
+                            var newItem = new TodoItemVM();
+                            ItemList.Add(newItem);
+                        }
+                    }
+                    ItemList.Remove(item);
+                    ItemList.Insert(priority-1, item);
+
+                    foreach (TodoItemVM vm in ItemList)
+                    {
+                        vm.Priority = ItemList.IndexOf(vm) + 1;
+                    }
+                }
             }
         }
     }

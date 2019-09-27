@@ -1,5 +1,5 @@
-﻿using InternshipProj.ViewModel;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using InternshipProj.ViewModel;
 
 namespace InternshipProj.View
 {

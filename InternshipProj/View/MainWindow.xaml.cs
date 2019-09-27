@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Forms.VisualStyles;
 using InternshipProj.ViewModel;
 
 namespace InternshipProj.View
@@ -11,6 +9,7 @@ namespace InternshipProj.View
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -19,7 +18,8 @@ namespace InternshipProj.View
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             var tabControlVM = TabControl.DataContext as ListTabsVM;
-            if (tabControlVM == null)
+
+            if (Equals(tabControlVM, null))
             {
                 return;
             }

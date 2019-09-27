@@ -18,6 +18,8 @@ namespace InternshipProj.Utility
             if(result == true)
             {
                 var userFile = ofd.FileName;
+                Properties.Settings.Default.userSavePath = userFile;
+                Properties.Settings.Default.Save();
                 return CSVRead(userFile);
             }
 
@@ -32,35 +34,52 @@ namespace InternshipProj.Utility
         private static List<TodoListVM> CSVRead(string userFile)
         {
             List<TodoListVM> lists = new List<TodoListVM>();
-
-            using (StreamReader sr = new StreamReader(userFile))
+            try
             {
-                while (!sr.EndOfStream)
+                using (StreamReader sr = new StreamReader(userFile))
                 {
-                    TodoListVM list = new TodoListVM();
-                    
-                    string line = sr.ReadLine();
-                    string[] splitArr = line.Split(new string[] { "-," }, StringSplitOptions.None);
-                    list.ListName = splitArr[0];
-
-                    for (int x = 0; x < splitArr.Length - 2; x+=2)
+                    while (!sr.EndOfStream)
                     {
-                        TodoItemVM item = new TodoItemVM();
-                        if (splitArr[x + 2] == "Done")
+                        TodoListVM list = new TodoListVM();
+
+                        string line = sr.ReadLine();
+                        string[] splitArr = line.Split(new string[] {"-,"}, StringSplitOptions.None);
+                        list.ListName = splitArr[0];
+                        list.PrioritizeToggle = bool.Parse(splitArr[1]);
+
+                        for (int x = 2; x < splitArr.Length - 2; x += 3)
                         {
-                            item.Done = true;
-                        }
-                        else
-                        {
-                            item.Done = false;
+                            TodoItemVM item = new TodoItemVM();
+
+                            if (!string.IsNullOrEmpty(splitArr[x]))
+                            {
+                                item.Priority = Int32.Parse(splitArr[x]);
+                            }
+                            else
+                            {
+                                item.Priority = null;
+                            }
+
+                            if (splitArr[x + 2] == "Done")
+                            {
+                                item.Done = true;
+                            }
+                            else
+                            {
+                                item.Done = false;
+                            }
+
+                            item.Desc = splitArr[x + 1];
+                            list.ItemList.Add(item);
                         }
 
-                        item.Desc = splitArr[x+1];
-                        list.ItemList.Add(item);
+                        lists.Add(list);
                     }
-                    
-                    lists.Add(list);
                 }
+            }
+            catch
+            {
+                return lists;
             }
             return lists;
         }

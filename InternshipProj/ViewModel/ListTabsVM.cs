@@ -8,14 +8,12 @@ namespace InternshipProj.ViewModel
     public class ListTabsVM : ViewModelBase
     {
         public ObservableCollection<TodoListVM> TabLists { get; }
-
         public RelayCommand DeleteList { get; }
-
         public RelayCommand AddList { get; }
-
         public RelayCommand SaveLists { get; }
-
         public RelayCommand LoadLists { get; }
+        public RelayCommand NewList { get; }
+        
 
         public ListTabsVM()
         {
@@ -24,6 +22,8 @@ namespace InternshipProj.ViewModel
             AddList = new RelayCommand(Add);
             SaveLists = new RelayCommand(Save, CanSave);
             LoadLists = new RelayCommand(Load);
+            NewList = new RelayCommand(New);
+            
         }
 
         private void BuildViewModels(List<TodoListVM> lists)
@@ -48,12 +48,16 @@ namespace InternshipProj.ViewModel
                     return; //if cancel, return
                 }
 
-                TabLists.Clear();   //otherwise, continue
+                //otherwise, continue
             }
 
             var loadedList = CSVImporter.Load();
-            BuildViewModels(loadedList);
-            Properties.Settings.Default.Save();
+            if (!Equals(loadedList, null))
+            {
+                TabLists.Clear();
+                BuildViewModels(loadedList);
+                Properties.Settings.Default.Save();
+            }
         }
 
         private bool CanSave(object obj)
@@ -104,6 +108,24 @@ namespace InternshipProj.ViewModel
 
                 }
             }
+        }
+
+        private void New(object obj)
+        {
+            Properties.Settings.Default.userSavePath = null;
+            Properties.Settings.Default.Save();
+            TabLists.Clear();
+            TodoListVM list = new TodoListVM();
+            TabLists.Add(list);
+        }
+
+        public void New()
+        {
+            Properties.Settings.Default.userSavePath = null;
+            Properties.Settings.Default.Save();
+            TabLists.Clear();
+            TodoListVM list = new TodoListVM();
+            TabLists.Add(list);
         }
 
         public void InitializeList(string path)

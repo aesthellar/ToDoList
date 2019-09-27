@@ -37,21 +37,35 @@ namespace InternshipProj.Utility
         //Method to create and write into CSV
         private void CSVwrite(List<TodoListVM> lists)
         {
+            if (Equals(FileName, null) || FileName.Equals("")) //Checks if closing on new, unsaved lists.
+            {
+                return;
+            }
             using (StreamWriter sw = new StreamWriter(FileName))
             {
                 StringBuilder sb = new StringBuilder();
-
                 foreach (TodoListVM list in lists)
                 {
                     sb.Append(list.ListName);
+                    sb.Append("-,");
+                    sb.Append(list.PrioritizeToggle);
 
                     foreach (TodoItemVM item in list.ItemList)
                     {
-                        Console.Write(item.Desc);
-                        string done;
+                        sb.Append("-,");
+                        if (item.Priority == null)
+                        {
+                            sb.Append("");
+                        }
+                        else
+                        {
+                            sb.Append(item.Priority);
+                        }
+                        
                         sb.Append("-,");
                         sb.Append(item.Desc);
                         sb.Append("-,");
+                        string done;
                         if (item.Done)
                         {
                             done = "Done";
@@ -62,6 +76,7 @@ namespace InternshipProj.Utility
                         }
                         sb.Append(done);
                     }
+
                     sw.WriteLine(sb.ToString());
                     sb.Clear();
                 }

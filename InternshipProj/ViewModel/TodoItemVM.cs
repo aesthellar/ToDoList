@@ -4,6 +4,18 @@ namespace InternshipProj.ViewModel
 {
     public class TodoItemVM : ViewModelBase
     {
+        private int? _priority;
+
+        public int? Priority
+        {
+            get { return _priority; }
+            set
+            {
+                _priority = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Desc
         {
             get { return Item.Desc; }

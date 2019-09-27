@@ -8,66 +8,136 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:ListTabsVM}">
+    <UserControl.Resources>
+        <Style x:Key="MenuToggleButton" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="{TemplateBinding Background}">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <viewModel:TodoListVM x:Key="TodoListVm"/>
+    </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveLists}"/>
+        <KeyBinding Key="L" Modifiers="Control" Command="{Binding LoadLists}"/>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding NewList}"/>
+        <KeyBinding Key="A" Modifiers="Control" Command="{Binding AddList}"/>
+    </UserControl.InputBindings>
+
     <Grid
-        Margin="250,50">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <StackPanel 
-                Orientation="Horizontal" 
-                Grid.Row="0" 
-                VerticalAlignment="Top" 
-                HorizontalAlignment="Right">
-                <Button
-                    Content="Add New List"
-                    FontSize="18"
-                    Margin="0,10"
-                    Padding="5"
-                    BorderThickness="0"
-                    Command="{Binding AddList,Mode=OneWay}"/>
-                <Button
-                    Content="Save"
-                    FontSize="18"
-                    Margin="10"
-                    Padding="5"
-                    BorderThickness="0"
-                    Command="{Binding SaveLists,Mode=OneWay}"/>
-                <Button
-                    Content="Load"
-                    FontSize="18"
-                    Margin="0,10,10,10"
-                    Padding="5"
-                    BorderThickness="0"
-                    Command="{Binding LoadLists,Mode=OneWay}" 
-                />
-            </StackPanel>
-            
+        MinHeight="300"
+        MaxHeight="850"
+        MinWidth="930"
+        MaxWidth="1030"
+        Margin="45">
+        <Grid
+            Margin="0,0,70,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Menu
+                Margin="10,20"
+                Grid.Column="1"
+                BorderThickness="0"
+                Background="Transparent">
+                <MenuItem>
+                    <MenuItem.Header>
+                        <Image
+                            Width="60"
+                            Height="60"
+                            Source="Icons/menuIcon.png"/>
+                    </MenuItem.Header>
+                    <MenuItem 
+                        Header="_Add List"
+                        FontSize="18"
+                        Padding="10"
+                        InputGestureText="Ctrl+A"
+                        Command="{Binding AddList,Mode=OneWay}">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/plusIcon.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Header="_Save"
+                        FontSize="18"
+                        Padding="10"
+                        InputGestureText="Ctrl+S"
+                        Command="{Binding SaveLists,Mode=OneWay}">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/saveIcon.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Header="_Open"
+                        FontSize="18"
+                        Padding="10">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/openIcon.png"></Image>
+                        </MenuItem.Icon>
+                        <MenuItem
+                            Header="_New File"
+                            FontSize="18"
+                            Padding="10"
+                            InputGestureText="Ctrl+N"
+                            Command="{Binding NewList,Mode=OneWay}">
+                            <MenuItem.Icon>
+                                <Image Source="Icons/newIcon.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                            Header="_Load File"
+                            FontSize="18"
+                            Padding="10"
+                            InputGestureText="Ctrl+L"
+                            Command="{Binding LoadLists,Mode=OneWay}">
+                            <MenuItem.Icon>
+                                <Image Source="Icons/loadIcon.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
             <TabControl
                     BorderThickness="0"
-                    Grid.Row="1"
+                    Grid.Column="0"
                     x:Name="TheTabControl"
                     ItemsSource="{Binding TabLists,Mode=OneWay}"
                     TabStripPlacement="Left">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
+                        <Setter Property="Margin" Value="0,-2,0,0"></Setter>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="TabItem">
                                     <Grid Name="Panel">
-                                        <ContentPresenter x:Name="ContentSite"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center"
-                                                ContentSource="Header"
-                                                Margin="50,20"/>
+                                        <ContentPresenter
+                                            x:Name="ContentSite"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            ContentSource="Header"
+                                            Margin="20,20"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter TargetName="Panel" Property="Background" Value="White"/>
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Panel" Property="Background" Value="#eaeaea"/>
+                                            <Setter TargetName="Panel" Property="Background" Value="#D6D6D6"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Panel" Property="Opacity" Value="0.5"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -76,14 +146,17 @@
                     </Style>
                 </TabControl.Resources>
                 <TabControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type viewModel:TodoListVM}">
-                        <StackPanel Orientation="Horizontal">
+                    <DataTemplate 
+                        DataType="{x:Type viewModel:TodoListVM}">
+                        <StackPanel
+                            Orientation="Horizontal">
                             <TextBlock
-                                    Text="{Binding ListName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                    HorizontalAlignment="Left"
-                                    Margin="0,0,10,0"
-                                    FontSize="18"
-                                    />
+                                Text="{Binding ListName,
+                                Mode=TwoWay,
+                                UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0,0,10,0"
+                                FontSize="18"
+                                Width="130"/>
                             <Button
                                 Content="X"
                                 Padding="3,0,3,0"
@@ -93,8 +166,51 @@
                                 Command="{Binding DataContext.DeleteList,
                                     RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl},
                                     Mode=OneWay}"
-                                CommandParameter="{Binding}"
-                            />
+                                CommandParameter="{Binding}">
+                                <Button.Resources>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="TabItem">
+                                                    <Grid Name="Panel">
+                                                        <ContentPresenter
+                                                            x:Name="ContentSite"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                            ContentSource="Header"
+                                                            Margin="20,20"/>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter TargetName="Panel" Property="Background" Value="White"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsSelected" Value="False">
+                                                            <Setter TargetName="Panel" Property="Background" Value="#D6D6D6"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="Panel" Property="Opacity" Value="0.5"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <StackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem 
+                                        Header="Prioritize"
+                                        FontSize="18"
+                                        Padding="10"
+                                        InputGestureText="Ctrl+P"
+                                        Command="{Binding ToggleList}">
+                                        <MenuItem.Icon>
+                                            <Image Source="Icons/prioritizeIcon.png"></Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
                         </StackPanel>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
