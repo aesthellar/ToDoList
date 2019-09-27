@@ -9,10 +9,10 @@
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModel:ListTabsVM}">
     <UserControl.Resources>
-        <Style x:Key="MenuToggleButton" TargetType="ToggleButton">
+        <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
+                    <ControlTemplate TargetType="Button">
                         <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="{TemplateBinding Background}">
                             <ContentPresenter/>
                         </Border>
@@ -25,8 +25,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <viewModel:TodoListVM x:Key="TodoListVm"/>
+        <Style x:Key="TitleFont" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+        </Style>
     </UserControl.Resources>
     <UserControl.InputBindings>
         <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveLists}"/>
@@ -117,7 +118,6 @@
                     TabStripPlacement="Left">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
-                        <Setter Property="Margin" Value="0,-2,0,0"></Setter>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="TabItem">
@@ -134,7 +134,7 @@
                                             <Setter TargetName="Panel" Property="Background" Value="White"/>
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Panel" Property="Background" Value="#D6D6D6"/>
+                                            <Setter TargetName="Panel" Property="Background" Value="#E5E5E5"/>
                                         </Trigger>
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter TargetName="Panel" Property="Opacity" Value="0.5"/>
@@ -151,6 +151,7 @@
                         <StackPanel
                             Orientation="Horizontal">
                             <TextBlock
+                                Style="{StaticResource TitleFont}"
                                 Text="{Binding ListName,
                                 Mode=TwoWay,
                                 UpdateSourceTrigger=PropertyChanged}"
@@ -158,44 +159,14 @@
                                 FontSize="18"
                                 Width="130"/>
                             <Button
-                                Content="X"
                                 Padding="3,0,3,0"
                                 BorderThickness="0"
                                 Background="Transparent"
-                                Opacity=".5"
                                 Command="{Binding DataContext.DeleteList,
                                     RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl},
                                     Mode=OneWay}"
                                 CommandParameter="{Binding}">
-                                <Button.Resources>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="TabItem">
-                                                    <Grid Name="Panel">
-                                                        <ContentPresenter
-                                                            x:Name="ContentSite"
-                                                            VerticalAlignment="Center"
-                                                            HorizontalAlignment="Center"
-                                                            ContentSource="Header"
-                                                            Margin="20,20"/>
-                                                    </Grid>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsSelected" Value="True">
-                                                            <Setter TargetName="Panel" Property="Background" Value="White"/>
-                                                        </Trigger>
-                                                        <Trigger Property="IsSelected" Value="False">
-                                                            <Setter TargetName="Panel" Property="Background" Value="#D6D6D6"/>
-                                                        </Trigger>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter TargetName="Panel" Property="Opacity" Value="0.5"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Resources>
+                                <Image Source="Icons/deleteIcon.png" Width="24" Height="24"></Image>
                             </Button>
                             <StackPanel.ContextMenu>
                                 <ContextMenu>

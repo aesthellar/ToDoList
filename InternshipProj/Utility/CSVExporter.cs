@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using InternshipProj.ViewModel;
 
@@ -19,13 +20,22 @@ namespace InternshipProj.Utility
             dlg.DefaultExt = ".csv";
             dlg.Filter = EXTFILTER;
 
-            bool? result = dlg.ShowDialog();
-
-            if(result == true)
+            if (Equals(Properties.Settings.Default.userSavePath, null))
             {
-                FileName = dlg.FileName;
+                bool? result = dlg.ShowDialog();
+
+                if (result == true)
+                {
+                    FileName = dlg.FileName;
+                    CSVwrite(lists);
+                }
+            }
+            else
+            {
+                FileName = Properties.Settings.Default.userSavePath;
                 CSVwrite(lists);
             }
+            
         }
 
         public void Save(List<TodoListVM> lists, string path)
