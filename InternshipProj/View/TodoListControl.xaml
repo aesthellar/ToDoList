@@ -215,14 +215,18 @@
                                 Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Text="{Binding Priority,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                             <TextBox.InputBindings>
-                                <KeyBinding Key="Enter" Command="{Binding DataContext.PrioritizeCommand, 
-                                RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl}, 
+                                <KeyBinding 
+                                    Key="Enter"
+                                    Command="{Binding DataContext.PrioritizeCommand, 
+                                    RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl}, 
+                                    Mode=OneWay}"
+                                    CommandParameter="{Binding}"/>
+                                <KeyBinding 
+                                    Key="Return" 
+                                    Command="{Binding DataContext.PrioritizeCommand, 
+                                    RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl}, 
                                 Mode=OneWay}"
-                                            CommandParameter="{Binding}"/>
-                                <KeyBinding Key="Return" Command="{Binding DataContext.PrioritizeCommand, 
-                                RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl}, 
-                                Mode=OneWay}"
-                                            CommandParameter="{Binding}"/>
+                                    CommandParameter="{Binding}"/>
                             </TextBox.InputBindings>
                         </TextBox>
                         <TextBox
@@ -233,19 +237,10 @@
                             FontSize="18"
                             VerticalContentAlignment="Center"
                             BorderThickness ="0"
-                            HorizontalAlignment="Stretch"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             MaxWidth="400"
                             Text="{Binding Desc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                            <TextBox.Resources>
-                                <Style TargetType="TextBox">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Done,Mode=OneWay}" Value="true">
-                                            <Setter Property="Foreground" Value="Red"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Resources>
                         </TextBox>
                         <CheckBox
                             Grid.Column="2"

@@ -1,0 +1,23 @@
+# pack-refs with: peeled fully-peeled sorted 
+acd209a80188e03e17bb77a0979fb028767d425d refs/heads/GINT-10
+da085a85f5b16221d80c8ebf31140db10f8ec69f refs/heads/GINT-11
+ce74c445f2e41b746b94c1dac7cbfa0280dee70d refs/heads/GINT-12
+c45d28541b25ed87153d2c3cd78d4fb5a1631f34 refs/heads/GINT-13
+a3f8c3baca0ecbc2f2e4376a3b3a6865c206d306 refs/heads/GINT-14
+05c5e6fefe0487bd38177b43fd5205d52a9f6769 refs/heads/GINT-3
+be5ba3bc14a83d1f6b2c9ed00e8fe718cd4176a3 refs/heads/GINT-5
+b784c11eeaa585506f73b7506910c902f020d70c refs/heads/GINT-6
+0a1faf1aa5fc84a62ca5598f967dc583fadfda27 refs/heads/GINT-8
+3c0ae6d84ec188eab074269209a42854f2c7dc60 refs/heads/GINT-9
+99b91f60c868c64e934c550748c1a2382a871426 refs/heads/develop
+acd209a80188e03e17bb77a0979fb028767d425d refs/import/heads/GINT-10
+da085a85f5b16221d80c8ebf31140db10f8ec69f refs/import/heads/GINT-11
+ce74c445f2e41b746b94c1dac7cbfa0280dee70d refs/import/heads/GINT-12
+c45d28541b25ed87153d2c3cd78d4fb5a1631f34 refs/import/heads/GINT-13
+a3f8c3baca0ecbc2f2e4376a3b3a6865c206d306 refs/import/heads/GINT-14
+05c5e6fefe0487bd38177b43fd5205d52a9f6769 refs/import/heads/GINT-3
+be5ba3bc14a83d1f6b2c9ed00e8fe718cd4176a3 refs/import/heads/GINT-5
+b784c11eeaa585506f73b7506910c902f020d70c refs/import/heads/GINT-6
+0a1faf1aa5fc84a62ca5598f967dc583fadfda27 refs/import/heads/GINT-8
+3c0ae6d84ec188eab074269209a42854f2c7dc60 refs/import/heads/GINT-9
+99b91f60c868c64e934c550748c1a2382a871426 refs/import/heads/develop

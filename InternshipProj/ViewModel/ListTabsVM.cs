@@ -11,6 +11,7 @@ namespace InternshipProj.ViewModel
         public RelayCommand DeleteList { get; }
         public RelayCommand AddList { get; }
         public RelayCommand SaveLists { get; }
+        public RelayCommand SaveAsLists { get; }
         public RelayCommand LoadLists { get; }
         public RelayCommand NewList { get; }
         
@@ -20,7 +21,8 @@ namespace InternshipProj.ViewModel
             TabLists = new ObservableCollection<TodoListVM>();
             DeleteList = new RelayCommand(Delete);
             AddList = new RelayCommand(Add);
-            SaveLists = new RelayCommand(Save, CanSave);
+            SaveLists = new RelayCommand(Save);
+            SaveAsLists = new RelayCommand(SaveAs);
             LoadLists = new RelayCommand(Load);
             NewList = new RelayCommand(New);
             
@@ -60,11 +62,6 @@ namespace InternshipProj.ViewModel
             }
         }
 
-        private bool CanSave(object obj)
-        {
-            return TabLists.Count > 0;
-        }
-
         private void Save(object obj)
         {
             List<TodoListVM> lists = new List<TodoListVM>();
@@ -74,8 +71,17 @@ namespace InternshipProj.ViewModel
             }
             CSVExporter csvexp = new CSVExporter();
             csvexp.Save(lists);
-            Properties.Settings.Default.userSavePath = csvexp.FileName;
-            Properties.Settings.Default.Save();
+        }
+
+        private void SaveAs(object obj)
+        {
+            List<TodoListVM> lists = new List<TodoListVM>();
+            foreach (TodoListVM list in TabLists)
+            {
+                lists.Add(list);
+            }
+            CSVExporter csvexp = new CSVExporter();
+            csvexp.SaveAs(lists);
         }
 
         private void Add(object obj)

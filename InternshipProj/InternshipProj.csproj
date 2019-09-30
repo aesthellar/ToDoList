@@ -164,6 +164,9 @@
   <ItemGroup>
     <Resource Include="View\Icons\prioritizeIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Icons\saveAsIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

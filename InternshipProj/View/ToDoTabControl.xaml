@@ -28,7 +28,9 @@
         <Style x:Key="TitleFont" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Arial"></Setter>
         </Style>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></BooleanToVisibilityConverter>
     </UserControl.Resources>
+    
     <UserControl.InputBindings>
         <KeyBinding Key="S" Modifiers="Control" Command="{Binding SaveLists}"/>
         <KeyBinding Key="L" Modifiers="Control" Command="{Binding LoadLists}"/>
@@ -78,6 +80,16 @@
                         Command="{Binding SaveLists,Mode=OneWay}">
                         <MenuItem.Icon>
                             <Image Source="Icons/saveIcon.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Header="_Save As"
+                        FontSize="18"
+                        Padding="10"
+                        InputGestureText="Ctrl+S"
+                        Command="{Binding SaveAsLists,Mode=OneWay}">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/saveAsIcon.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem

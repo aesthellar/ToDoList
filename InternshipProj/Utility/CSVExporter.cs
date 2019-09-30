@@ -27,6 +27,10 @@ namespace InternshipProj.Utility
                 if (result == true)
                 {
                     FileName = dlg.FileName;
+
+                    Properties.Settings.Default.userSavePath = FileName;
+                    Properties.Settings.Default.Save();
+
                     CSVwrite(lists);
                 }
             }
@@ -36,6 +40,24 @@ namespace InternshipProj.Utility
                 CSVwrite(lists);
             }
             
+        }
+
+        public void SaveAs(List<TodoListVM> lists)
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.DefaultExt = ".csv";
+            dlg.Filter = EXTFILTER;
+
+            bool? result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                FileName = dlg.FileName;
+                CSVwrite(lists);
+                Properties.Settings.Default.userSavePath = FileName;
+                Properties.Settings.Default.Save();
+            }
+
         }
 
         public void Save(List<TodoListVM> lists, string path)
