@@ -67,7 +67,6 @@
                                 </Track.DecreaseRepeatButton>
                             </Track>
                         </Grid>
-
                         <ControlTemplate.Triggers>
                             <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
                                 <Setter Value="{DynamicResource ButtonSelectBrush}" TargetName="Thumb" Property="Background" />
@@ -146,7 +145,6 @@
         <KeyBinding Key="A" Modifiers="Control+Shift" Command="{Binding AddCommand}"/>
         <KeyBinding Key="P" Modifiers="Control" Command="{Binding ToggleList}"/>
     </UserControl.InputBindings>
-
     <Grid
         MinWidth="320"
         Margin="50,80,30,30">
@@ -165,8 +163,7 @@
             VerticalContentAlignment="Center"
             BorderThickness ="0"
             Background="Transparent"
-            Text="{Binding ListName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-            />
+            Text="{Binding ListName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
         <ItemsControl
             ItemsSource="{Binding ItemList,Mode=OneWay}"
             Grid.Row="1">

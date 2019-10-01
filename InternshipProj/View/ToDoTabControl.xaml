@@ -104,7 +104,7 @@
                             FontSize="18"
                             Padding="10"
                             InputGestureText="Ctrl+N"
-                            Command="{Binding NewList,Mode=OneWay}">
+                            Command="{Binding NewList, Mode=OneWay}">
                             <MenuItem.Icon>
                                 <Image Source="Icons/newIcon.png"/>
                             </MenuItem.Icon>
