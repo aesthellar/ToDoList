@@ -34,7 +34,7 @@ namespace InternshipProj.Utility
                     CSVwrite(lists);
                 }
             }
-            else
+            else    //Save with file name previously saved as
             {
                 FileName = Properties.Settings.Default.userSavePath;
                 CSVwrite(lists);
@@ -66,17 +66,18 @@ namespace InternshipProj.Utility
             CSVwrite(lists);
         }
         
-        //Method to create and write into CSV
+        //Creates and writes into a CSV file
         private void CSVwrite(List<TodoListVM> lists)
         {
             if (Equals(FileName, null) || FileName.Equals("")) //Checks if closing on new, unsaved lists.
             {
                 return;
             }
+
             using (StreamWriter sw = new StreamWriter(FileName))
             {
                 StringBuilder sb = new StringBuilder();
-                foreach (TodoListVM list in lists)
+                foreach (TodoListVM list in lists)      //Lists follow format: "List Name"-,Priority bool-,Priority int-,"Description"-,Done bool-,...
                 {
                     sb.Append(list.ListName);
                     sb.Append("-,");

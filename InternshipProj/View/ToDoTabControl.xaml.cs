@@ -20,7 +20,7 @@ namespace InternshipProj.View
             }
             else
             {
-                _tabList.New();
+                _tabList.New(null);
             }
 
             DataContext = _tabList;

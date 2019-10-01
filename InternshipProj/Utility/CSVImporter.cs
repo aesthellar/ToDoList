@@ -31,6 +31,7 @@ namespace InternshipProj.Utility
             return CSVRead(fileName);
         }
 
+        //Creates and returns lists from CSV file
         private static List<TodoListVM> CSVRead(string userFile)
         {
             List<TodoListVM> lists = new List<TodoListVM>();

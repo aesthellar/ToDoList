@@ -28,6 +28,7 @@ namespace InternshipProj.ViewModel
             
         }
 
+        //Makes list of list view models used to display in each tab
         private void BuildViewModels(List<TodoListVM> lists)
         {
             if (lists != null)
@@ -39,18 +40,17 @@ namespace InternshipProj.ViewModel
             }
         }
 
+        //Calls importer to load previously saved file
         private void Load(object obj)
         {
             if (TabLists.Count > 0)
             {
-                //show message box with ok/cancel if user wants to clear items
+                //shows message box with ok/cancel if user wants to clear items
                 var result = MessageBox.Show("Loading saved lists will clear your current lists. Continue?", "Load Warning", MessageBoxButton.OKCancel);
                 if (!result.Equals(MessageBoxResult.OK))
                 {
                     return; //if cancel, return
                 }
-
-                //otherwise, continue
             }
 
             var loadedList = CSVImporter.Load();
@@ -62,6 +62,7 @@ namespace InternshipProj.ViewModel
             }
         }
 
+        //Calls exporter to save file with the saved file name
         private void Save(object obj)
         {
             List<TodoListVM> lists = new List<TodoListVM>();
@@ -73,6 +74,7 @@ namespace InternshipProj.ViewModel
             csvexp.Save(lists);
         }
 
+        //Calls exporter to save file with new user given file name
         private void SaveAs(object obj)
         {
             List<TodoListVM> lists = new List<TodoListVM>();
@@ -84,12 +86,14 @@ namespace InternshipProj.ViewModel
             csvexp.SaveAs(lists);
         }
 
+        //Adds new list in tabs
         private void Add(object obj)
         {
             TodoListVM list = new TodoListVM();
             TabLists.Add(list);
         }
 
+        //Deletes list in tab
         private void Delete(object obj)
         {
             if (obj is TodoListVM)
@@ -108,7 +112,7 @@ namespace InternshipProj.ViewModel
                         int count = TabLists.Count;
                     }
                 }
-                else
+                else    //tab header should always have at least 1 list open
                 {
                     var result = MessageBox.Show("Must have at least 1 list", "1 List Warning", MessageBoxButton.OK);
 
@@ -116,7 +120,8 @@ namespace InternshipProj.ViewModel
             }
         }
 
-        private void New(object obj)
+        //Sets a blank file with a new tab
+        public void New(object obj)
         {
             Properties.Settings.Default.userSavePath = null;
             Properties.Settings.Default.Save();
@@ -125,21 +130,14 @@ namespace InternshipProj.ViewModel
             TabLists.Add(list);
         }
 
-        public void New()
-        {
-            Properties.Settings.Default.userSavePath = null;
-            Properties.Settings.Default.Save();
-            TabLists.Clear();
-            TodoListVM list = new TodoListVM();
-            TabLists.Add(list);
-        }
-
+        //Loads file from previous exit on start
         public void InitializeList(string path)
         {
             var loadedList = CSVImporter.Load(path);
             BuildViewModels(loadedList);
         }
 
+        //Saves current file on exit
         public void ExitSave(string path)
         {
             List<TodoListVM> lists = new List<TodoListVM>();

@@ -11,7 +11,7 @@ namespace InternshipProj.ViewModel
         private string _listName;
 
         public ObservableCollection<TodoItemVM> ItemList { get; }
-
+        
         public bool PrioritizeToggle
         {
             get { return _prioritizeToggle; }
@@ -31,6 +31,7 @@ namespace InternshipProj.ViewModel
                 OnPropertyChanged();
             }
         }
+
         public RelayCommand AddCommand { get; }
         public RelayCommand DeleteCommand { get; }
         public RelayCommand PrioritizeCommand { get; }
@@ -59,6 +60,7 @@ namespace InternshipProj.ViewModel
             ToggleList = new RelayCommand(Toggle);
         }
 
+        //Creates list of Item View Models
         private void BuildViewModels(List<TodoItem> items)
         {
             if(items != null)
@@ -71,6 +73,7 @@ namespace InternshipProj.ViewModel
             }
         }
 
+        //Adds item onto list
         private void AddItem(object obj)
         {
             var newItem = new TodoItemVM();
@@ -78,6 +81,7 @@ namespace InternshipProj.ViewModel
             newItem.Priority = ItemList.Count;
         }
 
+        //Removes item from list
         private void DeleteItem(object obj)
         {
             if (obj is TodoItemVM)
@@ -91,6 +95,7 @@ namespace InternshipProj.ViewModel
             }
         }
 
+        //Prioritizes or unprioritizes list
         private void Toggle(object obj)
         {
             if (PrioritizeToggle == false)
@@ -103,6 +108,7 @@ namespace InternshipProj.ViewModel
             }
         }
 
+        //Sorts items according to their given priority
         public void Prioritize(object obj)
         {
             if (obj is TodoItemVM)
@@ -111,7 +117,7 @@ namespace InternshipProj.ViewModel
                 if (ItemList.Count > 1 && item.Priority > 0)
                 {
                     int priority = (int)item.Priority;
-                    if (priority >= ItemList.Count)
+                    if (priority >= ItemList.Count) //If user given priority is larger than list, add items to fill
                     {
                         int newItems = priority - ItemList.Count;
                         for (int i = 1; i <= newItems; i++)
@@ -123,7 +129,7 @@ namespace InternshipProj.ViewModel
                     ItemList.Remove(item);
                     ItemList.Insert(priority-1, item);
 
-                    foreach (TodoItemVM vm in ItemList)
+                    foreach (TodoItemVM vm in ItemList) //Update rest of items' priority in relation to the new priority
                     {
                         vm.Priority = ItemList.IndexOf(vm) + 1;
                     }
