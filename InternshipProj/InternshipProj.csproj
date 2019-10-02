@@ -167,6 +167,12 @@
   <ItemGroup>
     <Resource Include="View\Icons\saveAsIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Icons\undoIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Icons\redoIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

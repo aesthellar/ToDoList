@@ -9,7 +9,8 @@ namespace InternshipProj.ViewModel
     {
         private bool _prioritizeToggle;
         private string _listName;
-
+        public Stack<List<TodoItemVM>> _undo;
+        public Stack<List<TodoItemVM>> _redo;
         public ObservableCollection<TodoItemVM> ItemList { get; }
         
         public bool PrioritizeToggle
@@ -36,40 +37,54 @@ namespace InternshipProj.ViewModel
         public RelayCommand DeleteCommand { get; }
         public RelayCommand PrioritizeCommand { get; }
         public RelayCommand ToggleList { get; }
+        public RelayCommand UndoCommand { get; }
+        public RelayCommand RedoCommand { get; }
 
         public TodoListVM(List<TodoItem> items, string name)
         {
             _listName = name;
             _prioritizeToggle = false;
+            _undo = new Stack<List<TodoItemVM>>();
+            _redo = new Stack<List<TodoItemVM>>();
             ItemList = new ObservableCollection<TodoItemVM>();
             BuildViewModels(items);
             AddCommand = new RelayCommand(AddItem);
             DeleteCommand = new RelayCommand(DeleteItem);
             PrioritizeCommand = new RelayCommand(Prioritize);
             ToggleList = new RelayCommand(Toggle);
+            UndoCommand = new RelayCommand(Undo);
+            RedoCommand = new RelayCommand(Redo);
         }
 
         public TodoListVM()
         {
             _listName = "New List";
             _prioritizeToggle = false;
+            _undo = new Stack<List<TodoItemVM>>();
+            _redo = new Stack<List<TodoItemVM>>();
             ItemList = new ObservableCollection<TodoItemVM>();
             AddCommand = new RelayCommand(AddItem);
             DeleteCommand = new RelayCommand(DeleteItem);
             PrioritizeCommand = new RelayCommand(Prioritize);
             ToggleList = new RelayCommand(Toggle);
+            UndoCommand = new RelayCommand(Undo);
+            RedoCommand = new RelayCommand(Redo);
         }
 
         //Creates list of Item View Models
         private void BuildViewModels(List<TodoItem> items)
         {
-            if(items != null)
+            if (items != null)
             {
-                foreach(TodoItem item in items)
+                List<TodoItemVM> originalList = new List<TodoItemVM>();
+                foreach (TodoItem item in items)
                 {
                     var newItemVM = new TodoItemVM(item);
+
+                    originalList.Add(newItemVM);
                     ItemList.Add(newItemVM);
                 }
+                _undo.Push(originalList);
             }
         }
 
@@ -77,21 +92,37 @@ namespace InternshipProj.ViewModel
         private void AddItem(object obj)
         {
             var newItem = new TodoItemVM();
+            newItem.Priority = ItemList.Count + 1;
             ItemList.Add(newItem);
-            newItem.Priority = ItemList.Count;
+
+            List<TodoItemVM> items = new List<TodoItemVM>();
+            foreach (TodoItemVM item in ItemList)
+            {
+                items.Add(item);
+            }
+        
+            _undo.Push(items);
+            _redo.Clear();
         }
 
         //Removes item from list
         private void DeleteItem(object obj)
         {
+
             if (obj is TodoItemVM)
             {
-                var item = (TodoItemVM) obj;
-                ItemList.Remove(item);
-                foreach (TodoItemVM vm in ItemList)
+                var newItem = (TodoItemVM) obj;
+                ItemList.Remove(newItem);
+
+                List<TodoItemVM> items = new List<TodoItemVM>();
+                foreach (TodoItemVM item in ItemList)
                 {
-                    vm.Priority = ItemList.IndexOf(vm) + 1;
+                    items.Add(item);
+                    item.Priority = ItemList.IndexOf(item) + 1;
                 }
+
+                _undo.Push(items);
+                _redo.Clear();
             }
         }
 
@@ -133,6 +164,40 @@ namespace InternshipProj.ViewModel
                     {
                         vm.Priority = ItemList.IndexOf(vm) + 1;
                     }
+                }
+            }
+        }
+
+        //Undo list changes
+        private void Undo(object obj)
+        {
+            if (_undo.Count > 1)
+            {
+                List<TodoItemVM> output = _undo.Pop();
+                _redo.Push(output);
+                ItemList.Clear();
+                List<TodoItemVM> items = _undo.Peek(); 
+                foreach (TodoItemVM item in items)
+                { 
+                    ItemList.Add(item);
+                    item.Priority = ItemList.IndexOf(item) + 1;
+                }
+            }
+        }
+
+        //Redo list changes
+        private void Redo(object obj)
+        {
+            if (_redo.Count > 0)
+            {
+                List<TodoItemVM> output = _redo.Pop();
+                _undo.Push((output)); 
+                ItemList.Clear();
+                List<TodoItemVM> items = output; 
+                foreach (TodoItemVM item in items) 
+                {
+                    ItemList.Add(item);
+                    item.Priority = ItemList.IndexOf(item) + 1;
                 }
             }
         }

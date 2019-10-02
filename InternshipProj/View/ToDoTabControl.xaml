@@ -28,7 +28,6 @@
         <Style x:Key="TitleFont" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Arial"></Setter>
         </Style>
-        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></BooleanToVisibilityConverter>
     </UserControl.Resources>
     
     <UserControl.InputBindings>
@@ -190,6 +189,26 @@
                                         Command="{Binding ToggleList}">
                                         <MenuItem.Icon>
                                             <Image Source="Icons/prioritizeIcon.png"></Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Header="Undo"
+                                        FontSize="18"
+                                        Padding="10"
+                                        InputGestureText="Ctrl+Z"
+                                        Command="{Binding UndoCommand}">
+                                        <MenuItem.Icon>
+                                            <Image Source="Icons/undoIcon.png"></Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Header="Redo"
+                                        FontSize="18"
+                                        Padding="10"
+                                        InputGestureText="Ctrl+Y"
+                                        Command="{Binding RedoCommand}">
+                                        <MenuItem.Icon>
+                                            <Image Source="Icons/redoIcon.png"></Image>
                                         </MenuItem.Icon>
                                     </MenuItem>
                                 </ContextMenu>

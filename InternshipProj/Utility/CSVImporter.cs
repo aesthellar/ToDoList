@@ -42,6 +42,7 @@ namespace InternshipProj.Utility
                     while (!sr.EndOfStream)
                     {
                         TodoListVM list = new TodoListVM();
+                        List<TodoItemVM> items = new List<TodoItemVM>();
 
                         string line = sr.ReadLine();
                         string[] splitArr = line.Split(new string[] {"-,"}, StringSplitOptions.None);
@@ -72,8 +73,9 @@ namespace InternshipProj.Utility
 
                             item.Desc = splitArr[x + 1];
                             list.ItemList.Add(item);
+                            items.Add(item);
                         }
-
+                        list._undo.Push(items);
                         lists.Add(list);
                     }
                 }

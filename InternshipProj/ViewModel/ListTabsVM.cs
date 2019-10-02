@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 using InternshipProj.Utility;
 
 namespace InternshipProj.ViewModel
@@ -90,6 +91,7 @@ namespace InternshipProj.ViewModel
         private void Add(object obj)
         {
             TodoListVM list = new TodoListVM();
+            
             TabLists.Add(list);
         }
 
