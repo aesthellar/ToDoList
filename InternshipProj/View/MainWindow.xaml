@@ -6,7 +6,8 @@
         xmlns:view="clr-namespace:InternshipProj.View"
         xmlns:viewModel="clr-namespace:InternshipProj.ViewModel"
         mc:Ignorable="d"
-        Title="To Do" MinWidth="950" MinHeight="700"
+        d:DataContext="{d:DesignInstance viewModel:MainWindowVM}"
+        Title="To Do List" MinWidth="950" MinHeight="700"
         WindowState="Maximized"
         Closing="MainWindow_OnClosing">
     <Grid Background="WhiteSmoke">
@@ -14,11 +15,23 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0"
+            Background="White">
+            <TextBlock
+                FontSize="15"
+                Margin="10"
+                DataContext="{Binding ListTabs}"
+                Text="{Binding FileName}"/>
+        </Grid>
         <view:ToDoTabControl
-         x:Name="TabControl"
-         HorizontalAlignment="Stretch"
-         VerticalAlignment="Stretch"/>
+            Grid.Row="1"
+            x:Name="TabControl"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            DataContext="{Binding ListTabs}"/>
     </Grid>
 </Window>

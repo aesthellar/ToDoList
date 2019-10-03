@@ -7,6 +7,7 @@ namespace InternshipProj.Utility
 {
     public static class CSVImporter
     {
+        public static string _fileName;
         public static List<TodoListVM> Load()
         {
             Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
@@ -17,10 +18,10 @@ namespace InternshipProj.Utility
 
             if(result == true)
             {
-                var userFile = ofd.FileName;
-                Properties.Settings.Default.userSavePath = userFile;
+                _fileName = ofd.FileName;
+                Properties.Settings.Default.userSavePath = _fileName;
                 Properties.Settings.Default.Save();
-                return CSVRead(userFile);
+                return CSVRead(_fileName);
             }
 
             return null;

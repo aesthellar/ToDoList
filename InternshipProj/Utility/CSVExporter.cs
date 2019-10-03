@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using InternshipProj.ViewModel;
 
@@ -10,7 +8,6 @@ namespace InternshipProj.Utility
     public class CSVExporter
     {
         public const string EXTFILTER = "CSV Files|*.csv";
-
         public string FileName { get; private set; }
 
         //Method to open save dialog
@@ -42,6 +39,11 @@ namespace InternshipProj.Utility
             
         }
 
+        public void Save(List<TodoListVM> lists, string path)
+        {
+            FileName = path;
+            CSVwrite(lists);
+        }
         public void SaveAs(List<TodoListVM> lists)
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -60,12 +62,6 @@ namespace InternshipProj.Utility
 
         }
 
-        public void Save(List<TodoListVM> lists, string path)
-        {
-            FileName = path;
-            CSVwrite(lists);
-        }
-        
         //Creates and writes into a CSV file
         private void CSVwrite(List<TodoListVM> lists)
         {

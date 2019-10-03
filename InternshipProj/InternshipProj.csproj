@@ -65,11 +65,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Tests\UnitTest.cs" />
     <Compile Include="Utility\CSVExporter.cs" />
     <Compile Include="Utility\CSVImporter.cs" />
     <Compile Include="ViewModel\ListTabsVM.cs" />
+    <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="View\TodoListControl.xaml.cs">
       <DependentUpon>TodoListControl.xaml</DependentUpon>
     </Compile>

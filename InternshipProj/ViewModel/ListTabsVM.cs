@@ -1,13 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Input;
 using InternshipProj.Utility;
 
 namespace InternshipProj.ViewModel
 {
     public class ListTabsVM : ViewModelBase
     {
+        private string _fileName;
+
+        public string FileName
+        {
+            get { return _fileName; }
+            set
+            {
+                _fileName = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<TodoListVM> TabLists { get; }
         public RelayCommand DeleteList { get; }
         public RelayCommand AddList { get; }
@@ -16,7 +27,6 @@ namespace InternshipProj.ViewModel
         public RelayCommand LoadLists { get; }
         public RelayCommand NewList { get; }
         
-
         public ListTabsVM()
         {
             TabLists = new ObservableCollection<TodoListVM>();
@@ -26,7 +36,6 @@ namespace InternshipProj.ViewModel
             SaveAsLists = new RelayCommand(SaveAs);
             LoadLists = new RelayCommand(Load);
             NewList = new RelayCommand(New);
-            
         }
 
         //Makes list of list view models used to display in each tab
@@ -55,11 +64,12 @@ namespace InternshipProj.ViewModel
             }
 
             var loadedList = CSVImporter.Load();
+            FileName = CSVImporter._fileName;
+
             if (!Equals(loadedList, null))
             {
                 TabLists.Clear();
                 BuildViewModels(loadedList);
-                Properties.Settings.Default.Save();
             }
         }
 
@@ -73,6 +83,7 @@ namespace InternshipProj.ViewModel
             }
             CSVExporter csvexp = new CSVExporter();
             csvexp.Save(lists);
+            FileName = csvexp.FileName;
         }
 
         //Calls exporter to save file with new user given file name
@@ -85,6 +96,7 @@ namespace InternshipProj.ViewModel
             }
             CSVExporter csvexp = new CSVExporter();
             csvexp.SaveAs(lists);
+            FileName = csvexp.FileName;
         }
 
         //Adds new list in tabs
@@ -127,6 +139,8 @@ namespace InternshipProj.ViewModel
         {
             Properties.Settings.Default.userSavePath = null;
             Properties.Settings.Default.Save();
+            FileName = "New File";
+
             TabLists.Clear();
             TodoListVM list = new TodoListVM();
             TabLists.Add(list);

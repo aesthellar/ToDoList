@@ -9,21 +9,17 @@ namespace InternshipProj.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowVM windowVM = new MainWindowVM();
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = windowVM;
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            var tabControlVM = TabControl.DataContext as ListTabsVM;
-
-            if (Equals(tabControlVM, null))
-            {
-                return;
-            }
-            tabControlVM.ExitSave(Properties.Settings.Default.userSavePath);
+            windowVM.ExitSave();
         }
     }
 }

@@ -50,7 +50,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Menu
-                Margin="10,20"
+                Margin="10"
                 Grid.Column="1"
                 BorderThickness="0"
                 Background="Transparent">
@@ -138,7 +138,7 @@
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
                                             ContentSource="Header"
-                                            Margin="20,20"/>
+                                            Margin="20"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
@@ -177,7 +177,7 @@
                                     RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl},
                                     Mode=OneWay}"
                                 CommandParameter="{Binding}">
-                                <Image Source="Icons/deleteIcon.png" Width="24" Height="24"></Image>
+                                <Image Source="Icons/deleteIcon.png" Width="24" Height="24"/>
                             </Button>
                             <StackPanel.ContextMenu>
                                 <ContextMenu>
@@ -188,7 +188,7 @@
                                         InputGestureText="Ctrl+P"
                                         Command="{Binding ToggleList}">
                                         <MenuItem.Icon>
-                                            <Image Source="Icons/prioritizeIcon.png"></Image>
+                                            <Image Source="Icons/prioritizeIcon.png"/>
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
@@ -198,7 +198,7 @@
                                         InputGestureText="Ctrl+Z"
                                         Command="{Binding UndoCommand}">
                                         <MenuItem.Icon>
-                                            <Image Source="Icons/undoIcon.png"></Image>
+                                            <Image Source="Icons/undoIcon.png"/>
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
@@ -208,7 +208,7 @@
                                         InputGestureText="Ctrl+Y"
                                         Command="{Binding RedoCommand}">
                                         <MenuItem.Icon>
-                                            <Image Source="Icons/redoIcon.png"></Image>
+                                            <Image Source="Icons/redoIcon.png"/>
                                         </MenuItem.Icon>
                                     </MenuItem>
                                 </ContextMenu>

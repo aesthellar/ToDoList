@@ -155,17 +155,23 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox
-            Style="{StaticResource TitleFont}"
-            Grid.Row="0"
-            FontSize="40"
-            FontWeight="Bold"
-            Foreground="#394053"
-            Margin="0,0,0,30"
-            VerticalContentAlignment="Center"
-            BorderThickness ="0"
-            Background="Transparent"
-            Text="{Binding ListName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+             </Grid.ColumnDefinitions>
+            <TextBox
+                Style="{StaticResource TitleFont}"
+                Grid.Column="0"
+                FontSize="40"
+                FontWeight="Bold"
+                Foreground="#394053"
+                Margin="0,0,0,30"
+                VerticalContentAlignment="Center"
+                BorderThickness ="0"
+                Background="Transparent"
+                Text="{Binding ListName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
         <ItemsControl
             ItemsSource="{Binding ItemList,Mode=OneWay}"
             Grid.Row="1">
